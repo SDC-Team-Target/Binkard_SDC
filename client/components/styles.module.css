@@ -82,6 +82,7 @@ a {
 }
 
 .iconHolder {
+  box-sizing: content-box;
   height: 30px;
   width: 30px;
 }
