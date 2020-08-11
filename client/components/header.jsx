@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './styles.module.css';
+// eslint-disable-next-line import/extensions
 import Search from './search.jsx';
 
 const axios = require('axios');
 
 function Header() {
-  const [find, setFind] = useState('');
+  const [find, setFind] = useState([]);
   let searchFocus = false;
-
-  function nodeMaker(node) {
-    return (<node />);
-  }
 
   function select(e) {
     e.preventDefault();
@@ -20,9 +17,9 @@ function Header() {
   function populate(e) {
     const searchFor = e.target.value;
     axios.post('/s', { searchFor })
-    .then((result) => {
-
-    })
+      .then((result) => {
+        setFind(result);
+      });
   }
 
   function addSearch() {
@@ -32,7 +29,7 @@ function Header() {
     const newBox = document.createElement('div');
     if (!searchFocus) {
       searchBox.parentNode.insertBefore(newBox, searchBox.nextSibling);
-      ReactDOM.render(<Search />, newBox);
+      ReactDOM.render(<Search find={find} />, newBox);
     } else {
       // eslint-disable-next-line no-undef
       searchBox.parentNode.removeChild(searchBox.nextSibling);
@@ -42,7 +39,7 @@ function Header() {
   return (
     <div className={styles.navbar}>
       <nav className={styles.mainNav}>
-        <a href="#" className={styles.navItem}>
+        <a href="#navbar" className={styles.navItem}>
           <span className={styles.logoHolder}>
             <div className={styles.fill}>
               <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false">
@@ -51,7 +48,7 @@ function Header() {
             </div>
           </span>
         </a>
-        <a href="#" className={styles.navItem}>
+        <a href="#categories" className={styles.navItem}>
           <span>Categories</span>
           <span className={[styles.tinyArrow, styles.tinyPadding].join(' ')}>
             <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMax" viewBox="0 0 20 48" height="48" width="20" focusable="false" fill="none">
@@ -61,7 +58,7 @@ function Header() {
             </svg>
           </span>
         </a>
-        <a href="#" className={styles.navItem}>
+        <a href="#deals" className={styles.navItem}>
           <span>Deals</span>
           <span className={[styles.tinyArrow, styles.tinyPadding].join(' ')}>
             <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMax" viewBox="0 0 20 48" height="48" width="20" focusable="false" fill="none">
@@ -71,7 +68,7 @@ function Header() {
             </svg>
           </span>
         </a>
-        <a href="#" className={styles.navItem}>
+        <a href="#whatsnew" className={styles.navItem}>
           <span>What&apos;s New</span>
           <span className={[styles.tinyArrow, styles.tinyPadding].join(' ')}>
             <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMax" viewBox="0 0 20 48" height="48" width="20" focusable="false" fill="none">
@@ -92,11 +89,11 @@ function Header() {
               placeholder="Search"
               onFocus={addSearch}
               onBlur={addSearch}
-           //   onInput={}
+              onInput={populate}
             />
           </form>
         </div>
-        <a href="#" className={styles.navItem}>
+        <a href="#accountmenu" className={styles.navItem}>
           <span className={styles.accountMenu}>
             <span className={styles.iconHolder}>
               <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false">
@@ -115,7 +112,7 @@ function Header() {
             Sign in
           </span>
         </a>
-        <a href="#" className={[styles.navItem, styles.iconHolder].join(' ')}>
+        <a href="#adbar" className={[styles.navItem, styles.iconHolder].join(' ')}>
           <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false">
             <path d="M5.625 19.25c.77 0 1.375.605 1.375 1.375S6.395 22 5.625 22s-1.375-.605-1.375-1.375.605-1.375 1.375-1.375zm13 0c.77 0 1.375.605 1.375 1.375S19.395 22 18.625 22s-1.375-.605-1.375-1.375.604-1.375 1.375-1.375zM1.135 2.212l2.962.543 18.762 2.622-2.29 7.853-13.855.492.368 2.167c.094.558.55.977 1.103 1.034l.13.007H20.25v1.5H8.314a2.75 2.75 0 01-2.677-2.12l-.034-.17-.427-2.514L3.36 4.144.865 3.688l.27-1.476z" />
           </svg>
@@ -124,7 +121,7 @@ function Header() {
       <div className={styles.linkBar} />
       <div className={styles.adBar}>
         <div>
-          <a href="#">
+          <a href="#ad">
             <div className={styles.adBarContent} />
           </a>
           <button type="button" className={styles.killAd}>
