@@ -102,19 +102,19 @@ a {
 }
 
 .accountMenuText {
-    position: absolute;
-    box-sizing: border-box;
-    bottom: 7px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-overflow: ellipsis;
-    font-weight: normal;
-    color: rgb(255, 255, 255);
-    font-size: 12px;
-    white-space: nowrap;
-    display: block;
-    max-width: 60px;
-    overflow: hidden;
+  position: absolute;
+  box-sizing: border-box;
+  bottom: 7px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-overflow: ellipsis;
+  font-weight: normal;
+  color: rgb(255, 255, 255);
+  font-size: 12px;
+  white-space: nowrap;
+  display: block;
+  max-width: 60px;
+  overflow: hidden;
 }
 
 .searchHolder {
@@ -141,24 +141,24 @@ a {
 
 .searchbarForm input {
   display: block;
-    width: 100%;
-    cursor: text;
-    resize: none;
-    position: relative;
-    appearance: none;
-    background-color: transparent;
-    font-size: 16px;
-    line-height: 1.35em;
-    box-sizing: border-box !important;
-    outline: none;
-    padding: 7px 72px 7px 10px;
-    margin: 0px;
-    border-radius: 0px;
-    border-width: 0px;
-    border-style: initial;
-    border-color: initial;
-    border-image: initial;
-    padding: 10px 72px 10px 16px;
+  width: 100%;
+  cursor: text;
+  resize: none;
+  position: relative;
+  appearance: none;
+  background-color: transparent;
+  font-size: 16px;
+  line-height: 1.35em;
+  box-sizing: border-box !important;
+  outline: none;
+  padding: 7px 72px 7px 10px;
+  margin: 0px;
+  border-radius: 0px;
+  border-width: 0px;
+  border-style: initial;
+  border-color: initial;
+  border-image: initial;
+  padding: 10px 72px 10px 16px;
 }
 
 .searchbarForm::before {
@@ -276,6 +276,34 @@ a {
     padding: 6px 12px;
     border-radius: 4px;
     border-color: transparent;
+}
+
+.focus {
+  position: fixed;
+  top: 75px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgb(0, 0, 0, .7);
+}
+
+.searchDropdown {
+  position: relative;
+  background-color: #ffffff;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: 1px solid rgb(214, 214, 214);
+  padding: 12px 16px;
+  bottom: auto;
+  overflow: auto;
+}
+
+.searchItem + ::before{
+    content: "";
+    display: block;
+    border-top: 1px solid rgb(214, 214, 214);
+    margin: 0px 16px;
+    outline: 0px;
 }
 
 .hidden {

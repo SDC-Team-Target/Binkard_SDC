@@ -29,7 +29,7 @@ function Footer() {
                     <span className={[styles.arrowBox, styles.h_margin_l_tiny].join(' ')}>
                       <span className={styles.arrowFrame}>
                         <div className={styles.fill}>
-                          <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" focusable="false">
+                          <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false">
                             <defs>
                               <path id="nds-Icon32a" d="M9.06 12.5l7.47-7.47-1.06-1.06-8.53 8.53 8.53 8.53 1.06-1.06z">
                               </path>

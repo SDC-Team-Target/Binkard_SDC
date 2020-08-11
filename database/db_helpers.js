@@ -13,4 +13,6 @@ function getCategories(callback) {
   );
 }
 
-module.export.getCategories = getCategories;
+module.export = {
+  getCategories,
+};

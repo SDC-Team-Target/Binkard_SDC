@@ -1,7 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 import styles from './styles.module.css';
+import Search from './search.jsx';
+
+const axios = require('axios');
 
 function Header() {
+  const [find, setFind] = useState('');
+  let searchFocus = false;
+
+  function nodeMaker(node) {
+    return (<node />);
+  }
+
+  function select(e) {
+    e.preventDefault();
+  }
+
+  function populate(e) {
+    const searchFor = e.target.value;
+    axios.post('/s', { searchFor })
+    .then((result) => {
+
+    })
+  }
+
+  function addSearch() {
+    // eslint-disable-next-line no-undef
+    const searchBox = document.getElementById('searchBox');
+    // eslint-disable-next-line no-undef
+    const newBox = document.createElement('div');
+    if (!searchFocus) {
+      searchBox.parentNode.insertBefore(newBox, searchBox.nextSibling);
+      ReactDOM.render(<Search />, newBox);
+    } else {
+      // eslint-disable-next-line no-undef
+      searchBox.parentNode.removeChild(searchBox.nextSibling);
+    }
+    searchFocus = !searchFocus;
+  }
   return (
     <div className={styles.navbar}>
       <nav className={styles.mainNav}>
@@ -45,9 +82,18 @@ function Header() {
           </span>
         </a>
         <span className={styles.navItem}>Same Day Delivery</span>
-        <div className={styles.searchHolder}>
-          <form className={styles.searchbarForm}>
-            <input type="search" autoCorrect="off" autoCapitalize="off" autoComplete="off" placeholder="Search" />
+        <div className={styles.searchHolder} id="searchBox">
+          <form className={styles.searchbarForm} id="searchForm" onSubmit={select}>
+            <input
+              type="search"
+              autoCorrect="off"
+              autoCapitalize="off"
+              autoComplete="off"
+              placeholder="Search"
+              onFocus={addSearch}
+              onBlur={addSearch}
+              onInput={}
+            />
           </form>
         </div>
         <a href="#" className={styles.navItem}>
