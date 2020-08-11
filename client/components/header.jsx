@@ -16,7 +16,8 @@ function Header() {
 
   function populate(e) {
     const searchFor = e.target.value;
-    axios.post('/s', { searchFor })
+    console.log('Is this working?', searchFor);
+    axios.get(`/s/${searchFor}`)
       .then((result) => {
         setFind(result);
       });
