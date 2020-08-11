@@ -92,7 +92,7 @@ function Header() {
               placeholder="Search"
               onFocus={addSearch}
               onBlur={addSearch}
-              onInput={}
+           //   onInput={}
             />
           </form>
         </div>
