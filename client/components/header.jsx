@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
+/* eslint-disable no-undef */
+import React, { useState, useEffect } from 'react';
+import ReactHtmlParser from 'react-html-parser';
 import styles from './styles.module.css';
-// eslint-disable-next-line import/extensions
-import Search from './search.jsx';
 
 const axios = require('axios');
 
 function Header() {
   const [find, setFind] = useState([]);
-  let searchFocus = false;
 
   function select(e) {
     e.preventDefault();
@@ -16,27 +14,45 @@ function Header() {
 
   function populate(e) {
     const searchFor = e.target.value;
-    console.log('Is this working?', searchFor);
     axios.get(`/s/${searchFor}`)
       .then((result) => {
-        setFind(result);
+        const { data } = result;
+        const arrayOfData = Object.values(data);
+        arrayOfData.shift();
+        setFind(arrayOfData);
       });
+  }
+
+  function matchBar() {
+    // eslint-disable-next-line no-undef
+    const bar = document.getElementById('searchForm');
+    const dist = bar.getBoundingClientRect();
+    const { left } = dist;
+    const { right } = dist;
+    const width = right - left;
+    return { left, width };
   }
 
   function addSearch() {
     // eslint-disable-next-line no-undef
-    const searchBox = document.getElementById('searchBox');
-    // eslint-disable-next-line no-undef
-    const newBox = document.createElement('div');
-    if (!searchFocus) {
-      searchBox.parentNode.insertBefore(newBox, searchBox.nextSibling);
-      ReactDOM.render(<Search find={find} />, newBox);
+    const bar = document.getElementById('searchFocus');
+    if (bar.classList.contains(styles.hidden)) {
+      bar.classList.remove(styles.hidden);
     } else {
-      // eslint-disable-next-line no-undef
-      searchBox.parentNode.removeChild(searchBox.nextSibling);
+      bar.classList.add(styles.hidden);
     }
-    searchFocus = !searchFocus;
   }
+  useEffect(() => {
+    function handleResize() {
+      let { left, width } = matchBar();
+      left += 'px';
+      width += 'px';
+      document.getElementById('searchDD').style.left = left;
+      document.getElementById('searchDD').style.width = width;
+    }
+    handleResize();
+    window.addEventListener('resize', handleResize);
+  });
   return (
     <div className={styles.navbar}>
       <nav className={styles.mainNav}>
@@ -93,6 +109,36 @@ function Header() {
               onInput={populate}
             />
           </form>
+        </div>
+        <div className={[styles.focus, styles.hidden].join(' ')} id="searchFocus">
+          <div className={styles.searchDropdown} id="searchDD">
+            {find.map((res, index) => {
+              if (res[0].catName === undefined) {
+                return (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <ul key={index}>
+                    <li><h3>Categories:</h3></li>
+                    {res.map((cat) => <li key={cat.CategoryID}>{cat.CategoryName}</li>)}
+                  </ul>
+                );
+              }
+              return (
+                // eslint-disable-next-line react/no-array-index-key
+                <ul key={index}>
+                  <li>
+                    <h3>
+                      {
+                      res[0].catName
+                      }
+                    </h3>
+                  </li>
+                  {res.map(
+                    (item) => <li key={item.ProductID}><p>{ReactHtmlParser(item.snippet)}</p></li>,
+                  )}
+                </ul>
+              );
+            })}
+          </div>
         </div>
         <a href="#accountmenu" className={styles.navItem}>
           <span className={styles.accountMenu}>

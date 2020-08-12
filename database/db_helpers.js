@@ -14,8 +14,9 @@ function getCategories(callback) {
 }
 
 function getSearchCategories(find, callback) {
+  console.log(typeof find);
   connection.query(
-    'SELECT * FROM Categories WHERE CategoryName LIKE "%?%"', [find], (err, result) => {
+    'SELECT * FROM Categories WHERE CategoryName LIKE CONCAT("%", ?, "%")', [find], (err, result) => {
       if (err) {
         console.log('error gettting Categories from mysql');
         callback(err, null);
@@ -41,7 +42,7 @@ function getDeals(callback) {
 
 function getProdNames(find, callback) {
   connection.query(
-    'SELECT * FROM Products WHERE Name LIKE "%?%"', [find], (err, result) => {
+    'SELECT * FROM Products WHERE Name LIKE CONCAT("%", ?, "%")', [find], (err, result) => {
       if (err) {
         console.log('error in retrieving names from mysql');
         callback(err, null);
@@ -54,7 +55,7 @@ function getProdNames(find, callback) {
 
 function getProdDetails(find, callback) {
   connection.query(
-    'SELECT * FROM Products WHERE Details LIKE "%?%"', [find], (err, result) => {
+    'SELECT * FROM Products WHERE Details LIKE CONCAT("%", ?, "%")', [find], (err, result) => {
       if (err) {
         console.log('error in retrieving Details from mysql');
         callback(err, null);
@@ -67,7 +68,7 @@ function getProdDetails(find, callback) {
 
 function getProdCategories(find, callback) {
   connection.query(
-    'SELECT * FROM Products INNER JOIN Categories WHERE Categories.CategoryName = "%?%" AND Categories.CategoryID = Products.Category', [find], (err, result) => {
+    'SELECT * FROM Products INNER JOIN Categories WHERE Categories.CategoryName = CONCAT("%", ?, "%") AND Categories.CategoryID = Products.Category', [find], (err, result) => {
       if (err) {
         console.log('error in retrieving Products by Category from mysql');
         callback(err, null);
@@ -80,7 +81,7 @@ function getProdCategories(find, callback) {
 
 function getProdHighlights(find, callback) {
   connection.query(
-    'SELECT * FROM Products INNER JOIN Highlights WHERE Products.ProductID = Highlights.Product AND Highlights.Highlight LIKE "%?%"', [find], (err, result) => {
+    'SELECT * FROM Products INNER JOIN Highlights WHERE Products.ProductID = Highlights.Product AND Highlights.Highlight LIKE CONCAT("%", ?, "%")', [find], (err, result) => {
       if (err) {
         console.log('error in retrieving Products by Highlights from mysql');
         callback(err, null);
@@ -91,7 +92,20 @@ function getProdHighlights(find, callback) {
   );
 }
 
-module.export = {
+function getProdSpecs(find, callback) {
+  connection.query(
+    'SELECT * FROM Products INNER JOIN Specifications WHERE Products.ProductID = Specifications.Product AND Specifications.Spec LIKE CONCAT("%", ?, "%")', [find], (err, result) => {
+      if (err) {
+        console.error('error in retrieving Products by Specifications from mysql');
+        callback(err, null);
+      } else {
+        callback(null, result);
+      }
+    },
+  );
+}
+
+module.exports = {
   getCategories,
   getDeals,
   getSearchCategories,
@@ -99,4 +113,5 @@ module.export = {
   getProdDetails,
   getProdCategories,
   getProdHighlights,
+  getProdSpecs,
 };
