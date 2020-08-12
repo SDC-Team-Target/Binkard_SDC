@@ -7,9 +7,17 @@ const axios = require('axios');
 
 function Header() {
   const [find, setFind] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   function select(e) {
     e.preventDefault();
+  }
+
+  function getMenu(route, callback) {
+    axios.get(route)
+      .then((result) => {
+        callback(Object.values(result.data));
+      });
   }
 
   function populate(e) {
@@ -23,9 +31,9 @@ function Header() {
       });
   }
 
-  function matchBar() {
+  function matchBar(idName) {
     // eslint-disable-next-line no-undef
-    const bar = document.getElementById('searchForm');
+    const bar = document.getElementById(idName);
     const dist = bar.getBoundingClientRect();
     const { left } = dist;
     const { right } = dist;
@@ -33,25 +41,33 @@ function Header() {
     return { left, width };
   }
 
-  function addSearch() {
+  function addSearch(idChange) {
     // eslint-disable-next-line no-undef
-    const bar = document.getElementById('searchFocus');
+    const bar = document.getElementById(idChange);
     if (bar.classList.contains(styles.hidden)) {
       bar.classList.remove(styles.hidden);
     } else {
       bar.classList.add(styles.hidden);
     }
   }
+
+  function menuDrop(e) {
+    e.preventDefault();
+    const anchor = e.target.closest('a');
+    const idName = anchor.getAttribute('href').slice(1);
+    addSearch(idName);
+  }
   useEffect(() => {
-    function handleResize() {
-      let { left, width } = matchBar();
+    function handleResize(idToMatch, idToChange) {
+      let { left, width } = matchBar(idToMatch);
       left += 'px';
       width += 'px';
-      document.getElementById('searchDD').style.left = left;
-      document.getElementById('searchDD').style.width = width;
+      document.getElementById(idToChange).style.left = left;
+      document.getElementById(idToChange).style.width = width;
     }
-    handleResize();
-    window.addEventListener('resize', handleResize);
+    handleResize('searchForm', 'searchDD');
+    getMenu('/categories', setCategories);
+    window.addEventListener('resize', () => { handleResize('searchForm', 'searchDD'); });
   });
   return (
     <div className={styles.navbar}>
@@ -65,7 +81,16 @@ function Header() {
             </div>
           </span>
         </a>
-        <a href="#categories" className={styles.navItem}>
+        <a
+          href="#categories"
+          className={styles.navItem}
+          onClick={(e) => {
+            menuDrop(e);
+
+            //USE SET TIMEOUT WITH MOUSE LEAVE!!!! 
+            document.getElementById('categoriesDD').focus();
+          }}
+        >
           <span>Categories</span>
           <span className={[styles.tinyArrow, styles.tinyPadding].join(' ')}>
             <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMax" viewBox="0 0 20 48" height="48" width="20" focusable="false" fill="none">
@@ -75,6 +100,25 @@ function Header() {
             </svg>
           </span>
         </a>
+        <div className={[styles.focus, styles.hidden].join(' ')} id="categories">
+          <div
+            className={[styles.searchDropdown, styles.categoriesDD].join(' ')} 
+            id="categoriesDD"
+            onBlur={() => {
+              addSearch('categories');
+              console.log('Unblurred!')
+            }}
+          >
+            <ul>
+              <li className={styles.searchItem}><h3>Categories:</h3></li>
+              {categories.map((category) => (
+                <li key={category.CategoryID} className={styles.searchItem}>
+                  <p>{category.CategoryName}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
         <a href="#deals" className={styles.navItem}>
           <span>Deals</span>
           <span className={[styles.tinyArrow, styles.tinyPadding].join(' ')}>
@@ -104,8 +148,8 @@ function Header() {
               autoCapitalize="off"
               autoComplete="off"
               placeholder="Search"
-              onFocus={addSearch}
-              onBlur={addSearch}
+              onFocus={() => { addSearch('searchFocus'); }}
+              onBlur={() => { addSearch('searchFocus'); }}
               onInput={populate}
             />
           </form>
@@ -117,23 +161,32 @@ function Header() {
                 return (
                   // eslint-disable-next-line react/no-array-index-key
                   <ul key={index}>
-                    <li><h3>Categories:</h3></li>
-                    {res.map((cat) => <li key={cat.CategoryID}>{cat.CategoryName}</li>)}
+                    <li className={styles.searchItem}><h3>Categories:</h3></li>
+                    {res.map((cat) => (
+                      <li key={cat.CategoryID} className={styles.searchItem}>
+                        <p>{cat.CategoryName}</p>
+                      </li>
+                    ))}
                   </ul>
                 );
               }
               return (
                 // eslint-disable-next-line react/no-array-index-key
                 <ul key={index}>
-                  <li>
+                  <li className={styles.searchItem}>
                     <h3>
                       {
                       res[0].catName
                       }
+                      &#58;
                     </h3>
                   </li>
                   {res.map(
-                    (item) => <li key={item.ProductID}><p>{ReactHtmlParser(item.snippet)}</p></li>,
+                    (item) => (
+                      <li key={item.ProductID} className={styles.searchItem}>
+                        <p>{ReactHtmlParser(item.snippet)}</p>
+                      </li>
+                    ),
                   )}
                 </ul>
               );
@@ -176,7 +229,6 @@ function Header() {
           </button>
         </div>
       </div>
-
     </div>
   );
 }

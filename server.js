@@ -10,6 +10,16 @@ const db = Promise.promisifyAll(require('./database/db_helpers.js'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/categories', (req, res) => {
+  db.getCategories((err, result) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
 app.get('/s/:searchFor', (req, res) => {
   const find = req.params.searchFor;
   const re = new RegExp(find, 'gi');
@@ -32,15 +42,15 @@ app.get('/s/:searchFor', (req, res) => {
         } else {
           item.catName = `In item ${searching}`;
         }
-        if (item[searching].length > 50) {
+        if (item[searching].length > 75) {
           const start = item[searching].toLowerCase().indexOf(find.toLowerCase());
           if (start > 0) {
             item.snippet = '...';
           } else {
             item.snippet = '';
           }
-          item.snippet += item[searching].slice(start, start + 47);
-          if (item.snippet.length >= 47) {
+          item.snippet += item[searching].slice(start, start + 72);
+          if (item.snippet.length >= 72) {
             item.snippet += '...';
           }
         } else {

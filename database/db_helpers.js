@@ -14,7 +14,6 @@ function getCategories(callback) {
 }
 
 function getSearchCategories(find, callback) {
-  console.log(typeof find);
   connection.query(
     'SELECT * FROM Categories WHERE CategoryName LIKE CONCAT("%", ?, "%")', [find], (err, result) => {
       if (err) {
