@@ -40,16 +40,11 @@ function Footer() {
                       </span>
                     </span>
                   </div>
-
-
                 </div>
-
               </button>
             </div>
           </div>
         </div>
-
-
       </div>
     </div>
   );

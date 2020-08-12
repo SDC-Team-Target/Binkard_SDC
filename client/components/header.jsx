@@ -1,9 +1,8 @@
 /* eslint-disable no-undef */
 import React, { useState, useEffect } from 'react';
 import ReactHtmlParser from 'react-html-parser';
+import axios from 'axios';
 import styles from './styles.module.css';
-
-const axios = require('axios');
 
 function Header() {
   const [find, setFind] = useState([]);
