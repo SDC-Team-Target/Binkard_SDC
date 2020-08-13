@@ -145,6 +145,7 @@ function Header() {
         <div className={styles.searchHolder} id="searchBox">
           <form className={styles.searchbarForm} id="searchForm" onSubmit={select}>
             <input
+              id="searchbarInput"
               type="search"
               autoCorrect="off"
               autoCapitalize="off"
@@ -185,8 +186,23 @@ function Header() {
                   </li>
                   {res.map(
                     (item) => (
-                      <li key={item.ProductID} className={styles.searchItem}>
-                        <p>{ReactHtmlParser(item.snippet)}</p>
+                      <li
+                        key={item.ProductID}
+                        className={styles.searchItem}
+                      >
+                        <p>
+                          <a 
+                            href="#"
+                            onClick={
+                              () => {
+                                window.product_id = item.ProductID;
+                                document.getElementById('searchbarInput').blur();
+                              }
+                            } 
+                          >
+                            {ReactHtmlParser(item.snippet)}
+                          </a>
+                        </p>
                       </li>
                     ),
                   )}
