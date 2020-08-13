@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import axios from 'axios';
+import path from 'path';
 import styles from './styles.module.css';
 
 function Header() {
@@ -13,21 +14,23 @@ function Header() {
   }
 
   function getMenu(route, callback) {
-    axios.get(route)
+    axios.get(`http://localhost:8008${route}`)
       .then((result) => {
         callback(Object.values(result.data));
-      });
+      })
+      .catch();
   }
 
   function populate(e) {
     const searchFor = e.target.value;
-    axios.get(`/s/${searchFor}`)
+    axios.get(`http://localhost:8008/s/${searchFor}`)
       .then((result) => {
         const { data } = result;
         const arrayOfData = Object.values(data);
         arrayOfData.shift();
         setFind(arrayOfData);
-      });
+      })
+      .catch();
   }
 
   function matchBar(idName) {

@@ -10,6 +10,11 @@ const db = Promise.promisifyAll(require('./database/db_helpers.js'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+
 app.get('/categories', (req, res) => {
   db.getCategories((err, result) => {
     if (err) {

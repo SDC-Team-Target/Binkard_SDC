@@ -2,6 +2,9 @@ import React from 'react';
 
 import ReactDOM from 'react-dom';
 
-import App from './components/app.jsx';
+import Header from './components/header.jsx';
 
-ReactDOM.render(<App />, document.getElementById('app'));
+import Footer from './components/footer.jsx';
+
+ReactDOM.render(<Header />, document.getElementById('header'));
+ReactDOM.render(<Footer />, document.getElementById('footer'));
