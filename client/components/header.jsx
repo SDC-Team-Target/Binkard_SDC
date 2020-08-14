@@ -43,21 +43,22 @@ function Header() {
     return { left, width };
   }
 
-  function addSearch(idChange) {
+  function removeHidden(idChange) {
     // eslint-disable-next-line no-undef
     const bar = document.getElementById(idChange);
-    if (bar.classList.contains(styles.hidden)) {
-      bar.classList.remove(styles.hidden);
-    } else {
-      bar.classList.add(styles.hidden);
-    }
+    bar.classList.remove(styles.hidden);
+  }
+
+  function addHidden(idChange) {
+    const bar = document.getElementById(idChange);
+    bar.classList.add(styles.hidden);
   }
 
   function menuDrop(e) {
     e.preventDefault();
     const anchor = e.target.closest('a');
     const idName = anchor.getAttribute('href').slice(1);
-    addSearch(idName);
+    removeHidden(idName);
   }
   useEffect(() => {
     function handleResize(idToMatch, idToChange) {
@@ -68,8 +69,9 @@ function Header() {
       document.getElementById(idToChange).style.width = width;
     }
     handleResize('searchForm', 'searchDD');
-    getMenu('/categories', setCategories);
+    // getMenu('/categories', setCategories);
     window.addEventListener('resize', () => { handleResize('searchForm', 'searchDD'); });
+    if (categories.length === 0) { getMenu('/categories', setCategories); }
   });
   return (
     <div className={styles.navbar}>
@@ -107,8 +109,8 @@ function Header() {
             className={[styles.searchDropdown, styles.categoriesDD].join(' ')} 
             id="categoriesDD"
             onBlur={() => {
-              addSearch('categories');
-              console.log('Unblurred!')
+              addHidden('categories');
+              console.log('Unblurred!');
             }}
           >
             <ul>
@@ -151,8 +153,8 @@ function Header() {
               autoCapitalize="off"
               autoComplete="off"
               placeholder="Search"
-              onFocus={() => { addSearch('searchFocus'); }}
-              onBlur={() => { addSearch('searchFocus'); }}
+              onFocus={() => { removeHidden('searchFocus'); }}
+              onBlur={() => { setTimeout(() => addHidden('searchFocus'), 500); }}
               onInput={populate}
             />
           </form>
@@ -191,17 +193,19 @@ function Header() {
                         className={styles.searchItem}
                       >
                         <p>
-                          <a 
-                            href="#"
-                            onClick={
-                              () => {
-                                window.product_id = item.ProductID;
-                                document.getElementById('searchbarInput').blur();
-                              }
-                            } 
+                          <button
+                            type="button"
+                            className={styles.linkButton}
+                            onClick={() => {
+                              console.log('CLICKED!');
+                              window.changeProdID(item.ProductID);
+                              console.log(item.ProductID);
+                              window.testingVar = "this is a test";
+                              document.getElementById('searchbarInput').blur();
+                            }}
                           >
                             {ReactHtmlParser(item.snippet)}
-                          </a>
+                          </button>
                         </p>
                       </li>
                     ),
