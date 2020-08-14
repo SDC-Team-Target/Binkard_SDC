@@ -198,7 +198,7 @@ function Header() {
                             className={styles.linkButton}
                             onClick={() => {
                               console.log('CLICKED!');
-                              window.changeProdID(item.ProductID);
+                              window.setProductid(item.ProductID);
                               console.log(item.ProductID);
                               window.testingVar = "this is a test";
                               document.getElementById('searchbarInput').blur();
