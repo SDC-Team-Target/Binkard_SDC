@@ -13,6 +13,19 @@ function getCategories(callback) {
   );
 }
 
+function getItemsByCategory(cat, callback) {
+  connection.query(
+    'SELECT * FROM Products INNER JOIN Categories WHERE Categories.CategoryName = ? AND Products.Category = Categories.CategoryID', [cat], (err, result) => {
+      if (err) {
+        console.log('error getting items By Category from mysql');
+        callback(err, null);
+      } else {
+        callback(null, result);
+      }
+    },
+  );
+}
+
 function getSearchCategories(find, callback) {
   connection.query(
     'SELECT * FROM Categories WHERE CategoryName LIKE CONCAT("%", ?, "%")', [find], (err, result) => {
@@ -107,6 +120,7 @@ function getProdSpecs(find, callback) {
 module.exports = {
   getCategories,
   getDeals,
+  getItemsByCategory,
   getSearchCategories,
   getProdNames,
   getProdDetails,
