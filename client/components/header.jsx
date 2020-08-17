@@ -14,7 +14,7 @@ function Header() {
   }
 
   function getMenu(route, callback) {
-    axios.get(`http://localhost:8008${route}`)
+    axios.get(`http://${window.location.hostname}:8008${route}`)
       .then((result) => {
         callback(Object.values(result.data));
       })
@@ -23,7 +23,7 @@ function Header() {
 
   function populate(e) {
     const searchFor = e.target.value;
-    axios.get(`http://localhost:8008/s/${searchFor}`)
+    axios.get(`http://${window.location.hostname}:8008/s/${searchFor}`)
       .then((result) => {
         const { data } = result;
         const arrayOfData = Object.values(data);
