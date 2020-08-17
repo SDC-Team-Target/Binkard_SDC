@@ -66,10 +66,6 @@ app.get('/s/:searchFor', (req, res) => {
       }
     }
   }
-  // db.getCategoriesAsync()
-  //   .then(result => {
-  //     console.log(result);
-  //   })
   db.getSearchCategoriesAsync(find)
     .then((cats) => {
       if (cats.length > 0) {
