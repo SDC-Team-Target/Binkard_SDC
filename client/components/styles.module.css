@@ -1,0 +1,346 @@
+
+html {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  text-size-adjust: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1.4285;
+  color: rgb(51, 51, 51);
+  background-color: white;
+  max-width: 100%;
+  overflow-x: hidden;
+  margin: 0px;
+}
+
+div {
+  display: block;
+}
+a:-webkit-any-link {
+  color: webkit-link;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  touch-action: manipulation;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.navItem svg {
+  width: 100%;
+  height: 100%;
+}
+
+.navbar {
+  display: block;
+  box-sizing: border-box;
+}
+
+.mainNav {
+  display: flex;
+  position: relative;
+  height: 75px;
+  -webkit-box-align: center;
+  align-items: center;
+  z-index: 1049;
+  background: rgb(204, 0, 0);
+  padding: 0px 16px 0px 12px;
+  box-sizing: inherit;
+}
+
+.navItem {
+  position: relative;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  height: 85%;
+  flex: 0 0 auto;
+  padding: 0px 12px;
+  font-size: 18px;
+  font-weight: bold;
+  fill: #ffffff;
+}
+.fill {
+  width:100%;
+  height:100%;
+}
+
+.tinyPadding {
+  padding-left: 4px !important;
+}
+
+.logoHolder {
+  height: 44px;
+  width: 44px;
+}
+
+.iconHolder {
+  box-sizing: content-box;
+  height: 30px;
+  width: 30px;
+}
+
+.accountMenu {
+  top: 6px;
+  box-sizing: border-box;
+  display: inline-flex;
+  padding-left: 16px;
+  padding-bottom: 13px;
+  flex: 0 0 auto;
+  margin: 0px;
+  position: relative;
+  -webkit-box-pack: center;
+  justify-content: center;
+  height: 85%;
+}
+
+.accountMenuText {
+  position: absolute;
+  box-sizing: border-box;
+  bottom: 7px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-overflow: ellipsis;
+  font-weight: normal;
+  color: rgb(255, 255, 255);
+  font-size: 12px;
+  white-space: nowrap;
+  display: block;
+  max-width: 60px;
+  overflow: hidden;
+}
+
+.searchHolder {
+  display: flex;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  margin: 0px 32px 0px 20px;
+  min-width: 40px;
+  align-items: center;
+  flex: 1 1 100%;
+}
+
+.searchbarForm {
+  display: block;
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  max-width: 640px;
+  width: 100%;
+  height: 40px;
+  margin: 0px;
+  padding: 0px;
+  border-radius: 25px;
+}
+
+.searchbarForm input {
+  display: block;
+  width: 100%;
+  cursor: text;
+  resize: none;
+  position: relative;
+  appearance: none;
+  background-color: transparent;
+  font-size: 16px;
+  line-height: 1.35em;
+  box-sizing: border-box !important;
+  outline: none;
+  padding: 7px 72px 7px 10px;
+  margin: 0px;
+  border-radius: 0px;
+  border-width: 0px;
+  border-style: initial;
+  border-color: initial;
+  border-image: initial;
+  padding: 10px 72px 10px 16px;
+}
+
+.searchbarForm::before {
+  content: "";
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  background-color: rgb(247, 247, 247);
+  width: 40px;
+  opacity: 1;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  background-image: url(data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20%20viewBox%3D%220%200%2032%2032%22%20enable-background%3D%22new%200%200%2032%2032%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M29.9%2C27.6l-5-5.8c-0.3-0.4-0.4-1.1-0.1-1.6c0.1-0.2%2C2.3-3.8%2C2.3-7c0-7.1-5.8-12.8-12.8-12.8S1.5%2C6%2C1.5%2C13.1%20s5.8%2C12.8%2C12.8%2C12.8c2.4%2C0%2C5.1-1.2%2C5.2-1.2c0.4-0.2%2C1.2%2C0%2C1.5%2C0.3l5%2C5.9c0.4%2C0.5%2C1.1%2C0.8%2C1.8%2C0.8c0.6%2C0%2C1.1-0.2%2C1.5-0.5l0.4-0.3%20c0.5-0.4%2C0.8-1%2C0.8-1.6C30.5%2C28.6%2C30.3%2C28%2C29.9%2C27.6%20M23.2%2C13.1c0%2C4.9-4%2C8.9-8.9%2C8.9s-8.9-4-8.9-8.9s4-8.9%2C8.9-8.9%20C19.2%2C4.2%2C23.2%2C8.2%2C23.2%2C13.1%22%2F%3E%3C%2Fsvg%3E);
+  background-size: 14px;
+  transition: opacity 200ms ease-in 0s;
+  background-repeat: no-repeat;
+  background-position: 42% 50%;
+}
+
+.tinyArrow {
+  display: inline-block;
+  height: 20px;
+  overflow: hidden;
+}
+
+.tinyArrow svg {
+  transform: translateY(10px);
+  width: 10px;
+  height: 24px;
+  transition: transform 200ms linear 0s;
+}
+.tinyArrowDisplay {
+  display: inline-block;
+  height: 20px;
+  overflow: hidden;
+}
+
+.tinyArrowDisplay svg {
+  transform: translateY(-8px);
+  width: 10px;
+  height: 24px;
+  transition: transform 200ms linear 0s;
+}
+
+.linkBar {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  height: 48px;
+  background-color: rgb(255, 255, 255);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  position: relative;
+  z-index: 1048;
+  padding: 0px 7.5px 0px 16px;
+  border-bottom: 1px solid rgb(214, 214, 214);
+  text-decoration: none;
+}
+
+.adBar {
+  background-color: rgb(247, 247, 247);
+    border-right-style: initial;
+    border-left-style: initial;
+    border-right-color: initial;
+    border-left-color: initial;
+    position: relative;
+    margin-top: -1px;
+    border-width: 1px 0px;
+    border-image: initial;
+    border-top: 1px solid rgb(214, 214, 214);
+    border-bottom: 1px solid rgb(214, 214, 214);
+    padding: 16px 50px;
+}
+
+.adBarContent {
+  min-height:60px;
+  -webkit-box-pack: center;
+  justify-content: center;
+  text-align: center;
+  -webkit-box-align: center;
+  align-items: center;
+}
+.killAd {
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    flex-direction: row;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 3px;
+    right: 4px;
+    padding: 0px !important;
+
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    white-space: nowrap;
+    user-select: none;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 1.42857;
+    color: inherit;
+    background-color: transparent;
+    border-width: 1px;
+    border-style: solid;
+    padding: 6px 12px;
+    border-radius: 4px;
+    border-color: transparent;
+}
+
+.focus {
+  position: fixed;
+  top: 75px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgb(0, 0, 0, .7);
+}
+
+.searchDropdown {
+  position: relative;
+  background-color: #ffffff;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: 1px solid rgb(214, 214, 214);
+  padding: 12px 16px;
+  bottom: auto;
+  overflow: auto;
+}
+
+.searchItem{
+    
+    content: "";
+    display: block;
+    border-top: 1px solid rgb(214, 214, 214);
+    margin: 0px 0px;
+    outline: 0px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.searchItem li {
+  list-style-type: none;
+
+}
+
+.searchItem p {
+  font-size: 14px;
+}
+
+.categoriesDD {
+  top: 0px;
+  left: 0px;
+  width: 400px;
+}
+
+.linkButton {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  /*input has OS specific font-family*/
+  color: #069;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
