@@ -3,7 +3,7 @@ import styles from './footStyles.module.css';
 
 function Footer() {
   return (
-    <div>
+    <div className={styles.wholeFooter}>
       <span className={[styles.h_display_flex, styles.h_flex_align_center, styles.h_flex_justify_center].join(' ')}>
         <hr className={[styles.l_container, styles.l_container_fixed].join(' ')} />
       </span>

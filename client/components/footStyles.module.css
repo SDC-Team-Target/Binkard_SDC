@@ -1,11 +1,11 @@
-html {
+html .wholeFooter {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   text-size-adjust: 100%;
   box-sizing: border-box;
 }
 
-body {
+body .wholeFooter {
     line-height: 1.4285;
     color: rgb(51, 51, 51);
     background-color: white;
@@ -14,14 +14,13 @@ body {
     margin: 0px;
 }
 
-a {
+.wholeFooter a {
   background-color: transparent;
-  color: inherit;
   touch-action: manipulation;
   text-decoration: none;
 }
 
-hr {
+.wholeFooter hr {
   margin-top: 16px;
   margin-bottom: 16px;
   border-right-style: initial;
@@ -35,15 +34,15 @@ hr {
   border-top: 1px solid rgb(214, 214, 214);
 }
 
-div, span, p {
+.wholeFooter div, span, p {
   outline: 0px;
 }
 
-*, ::before, ::after {
+.wholeFooter *, ::before, ::after {
   box-sizing: inherit;
 }
 
-button {
+.wholeFooter button {
   appearance: button;
   -webkit-writing-mode: horizontal-tb !important;
   text-rendering: auto;
@@ -68,7 +67,7 @@ button {
   border-image: initial;
 }
 
-button {
+.wholeFooter button {
   vertical-align: middle;
   box-shadow: none;
   background-color: transparent;
@@ -84,7 +83,7 @@ button {
   overflow: visible;
 }
 
-button {
+.wholeFooter button {
   touch-action: manipulation;
   font: inherit;
   margin: 0px;

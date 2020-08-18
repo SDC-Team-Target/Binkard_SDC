@@ -25,8 +25,29 @@ app.get('/categories', (req, res) => {
   });
 });
 
+app.get('/c/:category', (req, res) => {
+  db.getItemsByCategory(req.params.category, (err, result) => {
+    if (err) {
+      res.sentStatus(500);
+    } else {
+      const adjusted = result.map((obj) => {
+        let more = '';
+        if (obj.Name.length > 70) more = '...';
+        const newObj = {
+          catName: 'Item Name',
+          snippet: obj.Name.slice(0, 70) + more,
+          ...obj,
+        };
+        return newObj;
+      });
+      res.send([adjusted]);
+    }
+  });
+});
+
 app.get('/s/:searchFor', (req, res) => {
   const find = req.params.searchFor;
+  console.log(find);
   const re = new RegExp(find, 'gi');
   const results = { count: 0 };
 
@@ -91,7 +112,7 @@ app.get('/s/:searchFor', (req, res) => {
       return db.getProdHighlightsAsync(find);
     })
     .then((highlights) => {
-      storeAspect(highlights, 'Highlights');
+      storeAspect(highlights, 'Highlight');
       if (results.count >= 10) {
         const err = false;
         throw err;
@@ -99,7 +120,7 @@ app.get('/s/:searchFor', (req, res) => {
       return db.getProdSpecsAsync(find);
     })
     .then((specs) => {
-      storeAspect(specs, 'Specifications');
+      storeAspect(specs, 'Spec');
       if (results.count >= 10) {
         const err = false;
         throw err;
@@ -108,6 +129,7 @@ app.get('/s/:searchFor', (req, res) => {
     })
     .catch((err) => {
       if (err) {
+        console.log(err);
         res.sendStatus(500);
       } else {
         res.send(results);
