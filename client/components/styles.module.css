@@ -1,12 +1,16 @@
+body {
+  margin: 0px;
+  max-width: 100%
+}
 
-html {
+html .navbar {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   text-size-adjust: 100%;
   box-sizing: border-box;
 }
 
-body {
+body .navbar {
   line-height: 1.4285;
   color: rgb(51, 51, 51);
   background-color: white;
@@ -15,24 +19,25 @@ body {
   margin: 0px;
 }
 
-div {
-  display: block;
-}
-a:-webkit-any-link {
+.navbar a:-webkit-any-link{
   color: webkit-link;
   cursor: pointer;
 }
 
-a {
-  color: inherit;
+.navbar a{
   touch-action: manipulation;
   text-decoration: none;
   background-color: transparent;
 }
 
-ul {
+.navbar ul{
   list-style-type: none;
   padding-left: 0;
+}
+
+.navbar {
+  display: block;
+  box-sizing: border-box;
 }
 
 .navItem svg {
@@ -40,10 +45,6 @@ ul {
   height: 100%;
 }
 
-.navbar {
-  display: block;
-  box-sizing: border-box;
-}
 
 .mainNav {
   display: flex;
@@ -290,6 +291,7 @@ ul {
   right: 0px;
   bottom: 0px;
   background-color: rgb(0, 0, 0, .7);
+  z-index: 9000;
 }
 
 .searchDropdown {
@@ -299,7 +301,7 @@ ul {
   border-bottom-right-radius: 5px;
   border: 1px solid rgb(214, 214, 214);
   padding: 12px 16px;
-  bottom: auto;
+  max-height: 100%;
   overflow: auto;
 }
 

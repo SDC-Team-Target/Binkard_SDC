@@ -13,15 +13,31 @@ function Header() {
     e.preventDefault();
   }
 
+  function isHidden(elementID) {
+    return document.getElementById(elementID).classList.contains(styles.hidden);
+  }
+
   function removeHidden(idChange) {
     // eslint-disable-next-line no-undef
-    const bar = document.getElementById(idChange);
-    bar.classList.remove(styles.hidden);
+    if (isHidden(idChange)) {
+      const bar = document.getElementById(idChange);
+      bar.classList.remove(styles.hidden);
+    }
   }
 
   function addHidden(idChange) {
     const bar = document.getElementById(idChange);
     bar.classList.add(styles.hidden);
+  }
+
+  function hideCheck(shown = []) {
+    const hiders = ['searchFocus', 'categoriesDD', 'searchDD'];
+    hiders.filter((el) => shown.indexOf(el) === -1)
+      .forEach((el) => {
+        if (!isHidden(el)) {
+          addHidden(el);
+        }
+      });
   }
 
   function getMenu(route, callback) {
@@ -46,14 +62,16 @@ function Header() {
 
   function populate(e) {
     const searchFor = e.target.value;
-    axios.get(`http://${window.location.hostname}:8008/s/${searchFor}`)
-      .then((result) => {
-        const { data } = result;
-        const arrayOfData = Object.values(data);
-        arrayOfData.shift();
-        setFind(arrayOfData);
-      })
-      .catch();
+    if (searchFor.length > 0) {
+      axios.get(`http://${window.location.hostname}:8008/s/${searchFor}`)
+        .then((result) => {
+          const { data } = result;
+          const arrayOfData = Object.values(data);
+          arrayOfData.shift();
+          setFind(arrayOfData);
+        })
+        .catch();
+    }
   }
 
   function matchBar(idName) {
@@ -66,12 +84,14 @@ function Header() {
     return { left, width };
   }
 
-
   function menuDrop(e) {
     e.preventDefault();
+    e.stopPropagation();
     const anchor = e.target.closest('a');
     const idName = anchor.getAttribute('href').slice(1);
+    removeHidden('searchFocus');
     removeHidden(idName);
+    hideCheck(['searchFocus', idName]);
   }
   useEffect(() => {
     function handleResize(idToMatch, idToChange) {
@@ -83,16 +103,7 @@ function Header() {
     }
     handleResize('searchForm', 'searchDD');
     // getMenu('/categories', setCategories);
-    document.getElementById('wholeNav').addEventListener('click', (e) => {
-      const catDD = document.getElementById('categoriesDD');
-      const searchDD = document.getElementById('searchFocus');
-      if (!catDD.classList.contains(styles.hidden)) {
-        addHidden('categoriesDD');
-      }
-      if (!searchDD.classList.contains(styles.hidden)) {
-        addHidden('searchFocus');
-      }
-    });
+    document.getElementById('wholeNav').addEventListener('click', () => { hideCheck(); });
     window.addEventListener('resize', () => { handleResize('searchForm', 'searchDD'); });
     if (categories.length === 0) { getMenu('/categories', setCategories); }
   });
@@ -109,14 +120,9 @@ function Header() {
           </span>
         </a>
         <a
-          href="#categories"
+          href="#categoriesDD"
           className={styles.navItem}
-          onClick={(e) => {
-            menuDrop(e);
-
-            //USE SET TIMEOUT WITH MOUSE LEAVE!!!! 
-            document.getElementById('categoriesDD').focus();
-          }}
+          onClick={menuDrop}
         >
           <span>Categories</span>
           <span className={[styles.tinyArrow, styles.tinyPadding].join(' ')}>
@@ -127,25 +133,6 @@ function Header() {
             </svg>
           </span>
         </a>
-        <div className={[styles.focus, styles.hidden].join(' ')} id="categories">
-          <div
-            className={[styles.searchDropdown, styles.categoriesDD].join(' ')}
-            id="categoriesDD"
-            onBlur={() => {
-              addHidden('categories');
-              console.log('Unblurred!');
-            }}
-          >
-            <ul>
-              <li className={styles.searchItem}><h3>Categories:</h3></li>
-              {categories.map((category) => (
-                <li key={category.CategoryID} className={styles.searchItem}>
-                  <p>{category.CategoryName}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
         <a href="#deals" className={styles.navItem}>
           <span>Deals</span>
           <span className={[styles.tinyArrow, styles.tinyPadding].join(' ')}>
@@ -176,74 +163,16 @@ function Header() {
               autoCapitalize="off"
               autoComplete="off"
               placeholder="Search"
-              onFocus={() => { removeHidden('searchFocus'); }}
-              onBlur={() => { setTimeout(() => addHidden('searchFocus'), 500); }}
+              onClick={(e) => {
+                e.stopPropagation();
+                removeHidden('searchFocus');
+                removeHidden('searchDD');
+                hideCheck(['searchFocus', 'searchDD']);
+              }}
+              // onBlur={() => { setTimeout(() => addHidden('searchFocus'), 500); }}
               onInput={populate}
             />
           </form>
-        </div>
-        <div className={[styles.focus, styles.hidden].join(' ')} id="searchFocus">
-          <div className={styles.searchDropdown} id="searchDD">
-            {find.map((res, index) => {
-              console.log(res);
-              if (res[0].catName === undefined) {
-                return (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <ul key={index}>
-                    <li className={styles.searchItem}><h3>Categories:</h3></li>
-                    {res.map((cat) => (
-                      <li key={cat.CategoryID} className={styles.searchItem}>
-                        <p>
-                          <button
-                              type="button"
-                              className={styles.linkButton}
-                              onClick={itemsByCategory}
-                            >
-                            {cat.CategoryName}
-                          </button>
-                        </p>
-                      </li>
-                    ))}
-                  </ul>
-                );
-              }
-              return (
-                // eslint-disable-next-line react/no-array-index-key
-                <ul key={index}>
-                  <li className={styles.searchItem}>
-                    <h3>
-                      {
-                      res[0].catName
-                      }
-                      &#58;
-                    </h3>
-                  </li>
-                  {res.map(
-                    (item) => (
-                      <li
-                        key={item.ProductID}
-                        className={styles.searchItem}
-                      >
-                        <p>
-                          <button
-                            type="button"
-                            className={styles.linkButton}
-                            onClick={() => {
-                              console.log('CLICKED!');
-                              window.setProductid(item.ProductID);
-                              document.getElementById('searchbarInput').blur();
-                            }}
-                          >
-                            {ReactHtmlParser(item.snippet)}
-                          </button>
-                        </p>
-                      </li>
-                    ),
-                  )}
-                </ul>
-              );
-            })}
-          </div>
         </div>
         <a href="#accountmenu" className={styles.navItem}>
           <span className={styles.accountMenu}>
@@ -270,6 +199,93 @@ function Header() {
           </svg>
         </a>
       </nav>
+      <div className={[styles.focus, styles.hidden].join(' ')} id="searchFocus">
+        <div className={[styles.searchDropdown, styles.hidden].join(' ')} id="searchDD">
+          {find.map((res, index) => {
+            if (res[0].catName === undefined) {
+              return (
+                // eslint-disable-next-line react/no-array-index-key
+                <ul key={index}>
+                  <li className={styles.searchItem}><h3>Categories:</h3></li>
+                  {res.map((cat) => (
+                    <li key={cat.CategoryID} className={styles.searchItem}>
+                      <p>
+                        <button
+                          type="button"
+                          className={styles.linkButton}
+                          onClick={itemsByCategory}
+                        >
+                          {cat.CategoryName}
+                        </button>
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              );
+            }
+            return (
+              // eslint-disable-next-line react/no-array-index-key
+              <ul key={index}>
+                <li className={styles.searchItem}>
+                  <h3>
+                    {
+                    res[0].catName
+                    }
+                    &#58;
+                  </h3>
+                </li>
+                {res.map(
+                  (item) => (
+                    <li
+                      key={item.ProductID}
+                      className={styles.searchItem}
+                    >
+                      <p>
+                        <button
+                          type="button"
+                          className={styles.linkButton}
+                          onClick={() => {
+                            window.setProductid(item.ProductID);
+                            document.getElementById('searchbarInput').blur();
+                          }}
+                        >
+                          {ReactHtmlParser(item.snippet)}
+                        </button>
+                      </p>
+                    </li>
+                  ),
+                )}
+              </ul>
+            );
+          })}
+        </div>
+        <div
+          className={[styles.searchDropdown, styles.categoriesDD, styles.hidden].join(' ')}
+          id="categoriesDD"
+        >
+          <ul>
+            <li className={styles.searchItem}><h3>Categories:</h3></li>
+            {categories.map((category) => (
+              <li key={category.CategoryID} className={styles.searchItem}>
+                <p>
+                  <button
+                    type="button"
+                    className={styles.linkButton}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      itemsByCategory(e);
+                      removeHidden('searchDD');
+                      hideCheck(['searchFocus', 'searchDD']);
+                    }}
+                  >
+                    {category.CategoryName}
+                  </button>
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
       <div className={styles.linkBar} />
       <div className={styles.adBar}>
         <div>
