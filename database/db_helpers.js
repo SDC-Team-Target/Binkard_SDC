@@ -15,7 +15,7 @@ function getCategories(callback) {
 
 function getItemsByCategory(cat, callback) {
   connection.query(
-    'SELECT * FROM Products INNER JOIN Categories WHERE Categories.CategoryName = ? AND Products.Category = Categories.CategoryID', [cat], (err, result) => {
+    'SELECT Products.ProductID, Products.Category, Products.Name FROM Products INNER JOIN Categories WHERE Categories.CategoryName = ? AND Products.Category = Categories.CategoryID', [cat], (err, result) => {
       if (err) {
         console.log('error getting items By Category from mysql');
         callback(err, null);
