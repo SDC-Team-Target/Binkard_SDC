@@ -45,6 +45,7 @@ body .wholeFooter {
 .wholeFooter button {
   appearance: button;
   -webkit-writing-mode: horizontal-tb !important;
+  writing-mode: horizontal-tb;
   text-rendering: auto;
   color: -internal-light-dark(buttontext, rgb(170, 170, 170));
   letter-spacing: normal;
@@ -219,7 +220,7 @@ body .wholeFooter {
   background-image: none;
   white-space: nowrap;
   user-select: none;
-  display: block;
+  display: flex;
   flex-basis: 100%;
   width: 100%;
   font-size: 16px;
