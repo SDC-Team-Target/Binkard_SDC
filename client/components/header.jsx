@@ -41,7 +41,7 @@ function Header() {
   }
 
   function getMenu(route, callback) {
-    axios.get(`http://${window.location.hostname}:8008${route}`)
+    axios.get(`http://ec2-18-191-153-215.us-east-2.compute.amazonaws.com:8008${route}`)
       .then((result) => {
         callback(Object.values(result.data));
       })
@@ -50,19 +50,19 @@ function Header() {
 
   function itemsByCategory(e) {
     const cat = e.target.innerText;
-    axios.get(`http://${window.location.hostname}:8008/c/${cat}`)
+    axios.get(`http://ec2-18-191-153-215.us-east-2.compute.amazonaws.com:8008/c/${cat}`)
       .then((result) => {
         const { data } = result;
         const arrayOfData = Object.values(data);
         setFind(arrayOfData);
         removeHidden('searchFocus');
-      })
+      });
   }
 
   function populate(e) {
     const searchFor = e.target.value;
     if (searchFor.length > 0) {
-      axios.get(`http://${window.location.hostname}:8008/s/${searchFor}`)
+      axios.get(`http://ec2-18-191-153-215.us-east-2.compute.amazonaws.com:8008/s/${searchFor}`)
         .then((result) => {
           const { data } = result;
           const arrayOfData = Object.values(data);
@@ -284,7 +284,54 @@ function Header() {
           </ul>
         </div>
       </div>
-      <div className={styles.linkBar} />
+      <div className={styles.linkBar}>
+        <div>
+          <p className={styles.linkbarLocation_sm}>You&apos;re shopping (closes at 10pm)&#58;</p>
+          <p className={styles.linkbarLocation_lg}>Austin</p>
+        </div>
+        <div>
+          <span>
+            <a href="#registry">
+              Registry
+            </a>
+          </span>
+          <span>
+            <a href="#weeklyAd">
+              Weekly Ad
+            </a>
+          </span>
+          <span>
+            <a href="#redCard">
+              RedCard
+            </a>
+          </span>
+          <span>
+            <a href="#giftCards">
+              Gift Cards
+            </a>
+          </span>
+          <span>
+            <a href="#findStores">
+              Find Stores
+            </a>
+          </span>
+          <span>
+            <a href="#orders">
+              Orders
+            </a>
+          </span>
+          <span>
+            <a href="#heart">
+              &lt;3
+            </a>
+          </span>
+          <span>
+            <a href="#More">
+              More
+            </a>
+          </span>
+        </div>
+      </div>
       <div className={styles.adBar}>
         <div>
           <a href="#ad">

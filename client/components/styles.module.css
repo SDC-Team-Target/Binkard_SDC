@@ -227,6 +227,37 @@ body .navbar {
   text-decoration: none;
 }
 
+.linkBar a {
+  color: #666666;
+}
+
+.linkBar a:hover {
+  color: rgb(51, 51, 51);
+  text-decoration: underline;
+}
+
+.linkBar span {
+  padding: 7.5px;
+}
+
+.linkbarLocation_sm {
+  color: #666666;
+  font-size: 12px !important;
+  line-height: 0.5;
+  font-weight: normal;
+  font: inherit;
+  margin: 0px;
+}
+
+.linkbarLocation_lg {
+  color: #666666;
+  font-weight: bold !important;
+  font-size: 14px !important;
+  line-height: 0.5;
+  font: inherit;
+  margin:0px;
+}
+
 .adBar {
   background-color: rgb(247, 247, 247);
     border-right-style: initial;
@@ -346,3 +377,4 @@ body .navbar {
 .hidden {
   display: none;
 }
+
