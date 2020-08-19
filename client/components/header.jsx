@@ -57,7 +57,6 @@ function Header() {
         setFind(arrayOfData);
         removeHidden('searchFocus');
       })
-      .catch();
   }
 
   function populate(e) {
@@ -69,8 +68,7 @@ function Header() {
           const arrayOfData = Object.values(data);
           arrayOfData.shift();
           setFind(arrayOfData);
-        })
-        .catch();
+        });
     }
   }
 

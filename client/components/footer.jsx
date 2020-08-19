@@ -8,7 +8,7 @@ function Footer() {
         <hr className={[styles.l_container, styles.l_container_fixed].join(' ')} />
       </span>
       <span className={[styles.h_display_flex, styles.h_flex_align_center, styles.h_flex_justify_center, styles.h_margin_h_default, styles.h_margin_v_default, styles.h_text_center, styles.tinyLineHeight].join(' ')}>
-        <a href="#" className={[styles.h_display_inline_block, styles.text].join(' ')}>
+        <a href="#warning" className={[styles.h_display_inline_block, styles.text].join(' ')}>
           <span className={[styles.h_text_sm, styles.h_text_grayDarkest].join(' ')}>
             <span className={styles.h_text_bold}>*See offer details. </span>
             Restrictions apply. Pricing, promotions and
@@ -31,8 +31,7 @@ function Footer() {
                         <div className={styles.fill}>
                           <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false">
                             <defs>
-                              <path id="nds-Icon32a" d="M9.06 12.5l7.47-7.47-1.06-1.06-8.53 8.53 8.53 8.53 1.06-1.06z">
-                              </path>
+                              <path id="nds-Icon32a" d="M9.06 12.5l7.47-7.47-1.06-1.06-8.53 8.53 8.53 8.53 1.06-1.06z" />
                             </defs>
                             <use transform="scale(1 -1) rotate(90 24.235 0)" />
                           </svg>
