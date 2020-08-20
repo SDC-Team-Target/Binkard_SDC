@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import axios from 'axios';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import styles from './styles.module.css';
 
 const { document } = window;
@@ -32,12 +33,20 @@ function Header() {
 
   function hideCheck(shown = []) {
     const hiders = ['searchFocus', 'categoriesDD', 'searchDD'];
+    const bod = document.getElementsByTagName('body')[0];
     hiders.filter((el) => shown.indexOf(el) === -1)
       .forEach((el) => {
         if (!isHidden(el)) {
           addHidden(el);
+          if (el === 'searchFocus') {
+            bod.classList.remove(styles.locked)
+          }
         }
       });
+    if (!isHidden('searchFocus') && !bod.classList.contains(styles.locked)) {
+      // disableBodyScroll(document.getElementById('searchFocus'));
+      bod.classList.add(styles.locked);
+    } 
   }
 
   function getMenu(route, callback) {
