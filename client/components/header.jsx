@@ -39,14 +39,14 @@ function Header() {
         if (!isHidden(el)) {
           addHidden(el);
           if (el === 'searchFocus') {
-            bod.classList.remove(styles.locked)
+            bod.classList.remove(styles.locked);
           }
         }
       });
     if (!isHidden('searchFocus') && !bod.classList.contains(styles.locked)) {
       // disableBodyScroll(document.getElementById('searchFocus'));
       bod.classList.add(styles.locked);
-    } 
+    }
   }
 
   function getMenu(route, callback) {
@@ -341,7 +341,7 @@ function Header() {
           </span>
         </div>
       </div>
-      <div className={styles.adBar}>
+      <div className={[styles.adBar, styles.hidden].join(' ')}>
         <div>
           <a href="#ad">
             <div className={styles.adBarContent} />

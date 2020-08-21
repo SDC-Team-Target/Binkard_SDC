@@ -1,6 +1,6 @@
 body {
   margin: 0px;
-  max-width: 100%
+  max-width: 100%;
 }
 
 html .navbar {
@@ -28,6 +28,12 @@ body .navbar {
   touch-action: manipulation;
   text-decoration: none;
   background-color: transparent;
+}
+
+.navbar a:hover {
+  color: white;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .navbar ul{
