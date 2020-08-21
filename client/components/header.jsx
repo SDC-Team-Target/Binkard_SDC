@@ -9,6 +9,24 @@ const { document } = window;
 function Header() {
   const [find, setFind] = useState([]);
   const [categories, setCategories] = useState([]);
+  // Text and link pairs for the deals menu:
+  const dealsMenu = [
+    ['Clearance', '#Clearance'],
+    ['Weekly Ad', '#WeeklyAd'],
+    ['Top Deals', '#TopDeals'],
+    ['RedCard Exclusives', '#RedCardExclusives'],
+    ['Target Circle Offers', '#TargetCircleOffers'],
+  ];
+  // Text and link pairs for the What's new menu
+  const whatsNewMenu = [
+    ['#TargetStyle', '#TargetStyle'],
+    ['New in Beauty', '#NewInBeauty'],
+    ['New in Women\'s', '#NewInWomens'],
+    ['Home New Arrivals', '#HomeNewArrivals'],
+    ['Fresh Fall Looks', '#FreshFallLooks'],
+    ['Kids\' New Arrivals', '#KidsNewArrivals'],
+    ['Target Finds', '#TargetFinds'],
+  ];
 
   function select(e) {
     e.preventDefault();
@@ -32,7 +50,13 @@ function Header() {
   }
 
   function hideCheck(shown = []) {
-    const hiders = ['searchFocus', 'categoriesDD', 'searchDD'];
+    const hiders = [
+      'searchFocus',
+      'categoriesDD',
+      'dealsDD',
+      'whatsNewDD',
+      'searchDD',
+    ];
     const bod = document.getElementsByTagName('body')[0];
     hiders.filter((el) => shown.indexOf(el) === -1)
       .forEach((el) => {
@@ -140,7 +164,11 @@ function Header() {
             </svg>
           </span>
         </a>
-        <a href="#deals" className={styles.navItem}>
+        <a
+          href="#dealsDD"
+          className={styles.navItem}
+          onClick={menuDrop}
+        >
           <span>Deals</span>
           <span className={[styles.tinyArrow, styles.tinyPadding].join(' ')}>
             <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMax" viewBox="0 0 20 48" height="48" width="20" focusable="false" fill="none">
@@ -150,7 +178,11 @@ function Header() {
             </svg>
           </span>
         </a>
-        <a href="#whatsnew" className={styles.navItem}>
+        <a
+          href="#whatsNewDD"
+          className={styles.navItem}
+          onClick={menuDrop}
+        >
           <span>What&apos;s New</span>
           <span className={[styles.tinyArrow, styles.tinyPadding].join(' ')}>
             <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMax" viewBox="0 0 20 48" height="48" width="20" focusable="false" fill="none">
@@ -287,6 +319,34 @@ function Header() {
                   >
                     {category.CategoryName}
                   </button>
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div id="dealsDD" className={[styles.menuDD, styles.dealsDD, styles.hidden].join(' ')}>
+          <ul>
+            {dealsMenu.map((deal, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <li key={i} className={[styles.searchItem, styles.menuItem].join(' ')}>
+                <p>
+                  <a href={deal[1]}>
+                    {deal[0]}
+                  </a>
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div id="whatsNewDD" className={[styles.menuDD, styles.whatsNewDD, styles.hidden].join(' ')}>
+          <ul>
+            {whatsNewMenu.map((whatsNew, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <li key={i} className={[styles.searchItem, styles.menuItem].join(' ')}>
+                <p>
+                  <a href={whatsNew[1]}>
+                    {whatsNew[0]}
+                  </a>
                 </p>
               </li>
             ))}
