@@ -92,6 +92,18 @@ function Header() {
       });
   }
 
+  function publishSearch(id) {
+    axios.post(`/s/${id}`);
+  }
+
+  function getTrending() {
+    axios.get('/trending')
+      .then((dataBlock) => {
+        const { data } = dataBlock;
+        setFind([data]);
+      });
+  }
+
   function populate(e) {
     const searchFor = e.target.value;
     if (searchFor.length > 0) {
@@ -102,6 +114,8 @@ function Header() {
           arrayOfData.shift();
           setFind(arrayOfData);
         });
+    } else {
+      getTrending();
     }
   }
 
@@ -134,9 +148,11 @@ function Header() {
     }
     handleResize('searchForm', 'searchDD');
     // getMenu('/categories', setCategories);
+    console.log('How many times does this run?');
     document.getElementById('wholeNav').addEventListener('click', () => { hideCheck(); });
     window.addEventListener('resize', () => { handleResize('searchForm', 'searchDD'); });
     if (categories.length === 0) { getMenu('/categories', setCategories); }
+    if (find.length === 0) { getTrending(); }
   });
   return (
     <div className={styles.navbar} id="wholeNav">
@@ -284,7 +300,8 @@ function Header() {
                           type="button"
                           className={styles.linkButton}
                           onClick={() => {
-                            window.setProductid(item.ProductID);
+                          //  window.setProductid(item.ProductID);
+                            publishSearch(item.ProductID);
                             document.getElementById('searchbarInput').blur();
                           }}
                         >

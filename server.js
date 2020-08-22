@@ -41,6 +41,37 @@ app.get('/c/:category', (req, res) => {
   });
 });
 
+app.post('/s/:searchedFor', (req, res) => {
+  const searched = req.params.searchedFor;
+  db.getProdByIdAsync(searched)
+    .then((name) => db.addToTrendingSearchesAsync(name[0].Name))
+    .then(() => res.sendStatus(200))
+    .catch((err) => {
+      console.log('error storing search result: ', err);
+      res.sendStatus(500);
+    });
+});
+
+app.get('/trending', (req, res) => {
+  db.getTrendingSearchesAsync()
+    .then((queries) => Promise.all(
+      queries.map((query) => db.getProdByNameAsync(query.Query)),
+    ))
+    .then((products) => {
+      res.send(products.map((prod) => {
+        const newObj = { ...prod[0] };
+        newObj.catName = 'Trending Searches';
+        newObj.snippet = prod[0].Name;
+        console.log(newObj);
+        return newObj;
+      }));
+    })
+    .catch((err) => {
+      console.log('error getting Recently Searched: ', err);
+      res.sendStatus(500);
+    });
+});
+
 app.get('/s/:searchFor', (req, res) => {
   const find = req.params.searchFor;
   // This will take whatever is typed in and replace those instances with a bolded version.

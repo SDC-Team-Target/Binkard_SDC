@@ -65,6 +65,58 @@ function getProdNames(find, callback) {
   );
 }
 
+function getProdByName(find, callback) {
+  connection.query(
+    'SELECT * FROM Products WHERE Name = ?', [find], (err, result) => {
+      if (err) {
+        console.log('error in retrieving names from mysql');
+        callback(err, null);
+      } else {
+        callback(null, result);
+      }
+    },
+  );
+}
+
+function getProdById(id, callback) {
+  connection.query(
+    'SELECT Name FROM Products WHERE ProductID = ?', [id], (err, result) => {
+      if (err) {
+        console.log('error in retrieving names from mysql');
+        callback(err, null);
+      } else {
+        callback(null, result);
+      }
+    },
+  );
+}
+
+function addToTrendingSearches(searched, callback) {
+  connection.query(
+    'INSERT INTO Searches (Query, TimesSearched) VALUES (?, 1) ON DUPLICATE KEY UPDATE TimesSearched = TimesSearched + 1', [searched], (err, result) => {
+      if (err) {
+        console.log('error in adding to Recently Searched');
+        callback(err, null);
+      } else {
+        callback(null, result);
+      }
+    },
+  );
+}
+
+function getTrendingSearches(callback) {
+  connection.query(
+    'SELECT Query FROM Searches ORDER BY TimesSearched DESC LIMIT 10', (err, result) => {
+      if (err) {
+        console.log('error getting trending Searches');
+        callback(err, null);
+      } else {
+        callback(null, result);
+      }
+    }
+  )
+}
+
 function getProdDetails(find, callback) {
   connection.query(
     'SELECT * FROM Products WHERE Details LIKE CONCAT("%", ?, "%")', [find], (err, result) => {
@@ -127,4 +179,8 @@ module.exports = {
   getProdCategories,
   getProdHighlights,
   getProdSpecs,
+  addToTrendingSearches,
+  getTrendingSearches,
+  getProdByName,
+  getProdById,
 };
