@@ -435,7 +435,7 @@ body .navbar {
   font-size: 14px;
 }
 
-searchItem h3 {
+.searchItem h3 {
   font-size: 18;
   font-weight: bold;
   line-height: inherit;

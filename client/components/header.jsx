@@ -101,7 +101,8 @@ function Header() {
       .then((dataBlock) => {
         const { data } = dataBlock;
         setFind([data]);
-      });
+      })
+      .catch((err) => {console.log('Cant retreive trending. error: ', err)})
   }
 
   function populate(e) {
@@ -148,11 +149,10 @@ function Header() {
     }
     handleResize('searchForm', 'searchDD');
     // getMenu('/categories', setCategories);
-    console.log('How many times does this run?');
     document.getElementById('wholeNav').addEventListener('click', () => { hideCheck(); });
     window.addEventListener('resize', () => { handleResize('searchForm', 'searchDD'); });
     if (categories.length === 0) { getMenu('/categories', setCategories); }
-  //  if (find.length === 0) { getTrending(); }
+    if (find.length === 0) { getTrending(); }
   });
   return (
     <div className={styles.navbar} id="wholeNav">
@@ -300,8 +300,8 @@ function Header() {
                           type="button"
                           className={[styles.linkButton, styles.font14].join(' ')}
                           onClick={() => {
-                          //  window.setProductid(item.ProductID);
                             publishSearch(item.ProductID);
+                            window.setProductid(item.ProductID);
                             document.getElementById('searchbarInput').blur();
                           }}
                         >
