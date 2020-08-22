@@ -152,7 +152,7 @@ function Header() {
     document.getElementById('wholeNav').addEventListener('click', () => { hideCheck(); });
     window.addEventListener('resize', () => { handleResize('searchForm', 'searchDD'); });
     if (categories.length === 0) { getMenu('/categories', setCategories); }
-    if (find.length === 0) { getTrending(); }
+  //  if (find.length === 0) { getTrending(); }
   });
   return (
     <div className={styles.navbar} id="wholeNav">
