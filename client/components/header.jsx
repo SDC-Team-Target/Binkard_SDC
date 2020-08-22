@@ -93,11 +93,11 @@ function Header() {
   }
 
   function publishSearch(id) {
-    axios.post(`/s/${id}`);
+    axios.post(`http://ec2-18-191-153-215.us-east-2.compute.amazonaws.com:8008/s/${id}`);
   }
 
   function getTrending() {
-    axios.get('/trending')
+    axios.get('http://ec2-18-191-153-215.us-east-2.compute.amazonaws.com:8008/trending')
       .then((dataBlock) => {
         const { data } = dataBlock;
         setFind([data]);
