@@ -436,9 +436,10 @@ body .navbar {
 }
 
 .searchItem h3 {
-  font-size: 18;
+  font-size: 18 !important;
   font-weight: bold;
   line-height: inherit;
+  margin-bottom: inherit !important;
 }
 
 .categoriesDD {
