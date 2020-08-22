@@ -267,7 +267,7 @@ function Header() {
                       <p>
                         <button
                           type="button"
-                          className={styles.linkButton}
+                          className={[styles.linkButton, styles.font14].join(' ')}
                           onClick={itemsByCategory}
                         >
                           {cat.CategoryName}
@@ -298,7 +298,7 @@ function Header() {
                       <p>
                         <button
                           type="button"
-                          className={styles.linkButton}
+                          className={[styles.linkButton, styles.font14].join(' ')}
                           onClick={() => {
                           //  window.setProductid(item.ProductID);
                             publishSearch(item.ProductID);
@@ -322,11 +322,11 @@ function Header() {
           <ul>
             <li className={styles.searchItem}><h3>Categories:</h3></li>
             {categories.map((category) => (
-              <li key={category.CategoryID} className={styles.searchItem}>
+              <li key={category.CategoryID} className={[styles.searchItem, styles.menuItem].join(' ')}>
                 <p>
                   <button
                     type="button"
-                    className={styles.linkButton}
+                    className={[styles.linkButton, styles.font18].join(' ')}
                     onClick={(e) => {
                       e.stopPropagation();
                       itemsByCategory(e);
