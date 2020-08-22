@@ -49,6 +49,16 @@ function Header() {
     bar.classList.add(styles.hidden);
   }
 
+  function showArrow(idName) {
+    document.getElementById(idName)
+      .classList.replace(styles.arrowHide, styles.arrowShow);
+  }
+
+  function hideArrow(idName) {
+    document.getElementById(idName)
+      .classList.replace(styles.arrowShow, styles.arrowHide);
+  }
+
   function hideCheck(shown = []) {
     const hiders = [
       'searchFocus',
@@ -64,6 +74,8 @@ function Header() {
           addHidden(el);
           if (el === 'searchFocus') {
             bod.classList.remove(styles.locked);
+          } else if (el !== 'searchDD') {
+            hideArrow(`${el.slice(0, -2)}Arrow`);
           }
         }
       });
@@ -102,7 +114,7 @@ function Header() {
         const { data } = dataBlock;
         setFind([data]);
       })
-      .catch((err) => {console.log('Cant retreive trending. error: ', err)})
+      .catch((err) => {console.log('Cant retreive trending. error: ', err); });
   }
 
   function populate(e) {
@@ -135,8 +147,10 @@ function Header() {
     e.stopPropagation();
     const anchor = e.target.closest('a');
     const idName = anchor.getAttribute('href').slice(1);
+    const arrowName = `${idName.slice(0, -2)}Arrow`;
     removeHidden('searchFocus');
     removeHidden(idName);
+    showArrow(arrowName);
     hideCheck(['searchFocus', idName]);
   }
   useEffect(() => {
@@ -173,7 +187,7 @@ function Header() {
         >
           <span>Categories</span>
           <span className={[styles.tinyArrow, styles.tinyPadding].join(' ')}>
-            <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMax" viewBox="0 0 20 48" height="48" width="20" focusable="false" fill="none">
+            <svg id="categoriesArrow" className={styles.arrowHide} xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMax" viewBox="0 0 20 48" height="48" width="20" focusable="false" fill="none">
               <g strokeWidth="3.2" stroke="#eaadad" fill="none" fillRule="evenodd">
                 <path d="M2 1.5l8 8 8-8m-16 44l8-8 8 8" />
               </g>
@@ -187,7 +201,7 @@ function Header() {
         >
           <span>Deals</span>
           <span className={[styles.tinyArrow, styles.tinyPadding].join(' ')}>
-            <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMax" viewBox="0 0 20 48" height="48" width="20" focusable="false" fill="none">
+            <svg id="dealsArrow" className={styles.arrowHide} xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMax" viewBox="0 0 20 48" height="48" width="20" focusable="false" fill="none">
               <g strokeWidth="3.2" stroke="#eaadad" fill="none" fillRule="evenodd">
                 <path d="M2 1.5l8 8 8-8m-16 44l8-8 8 8" />
               </g>
@@ -201,7 +215,7 @@ function Header() {
         >
           <span>What&apos;s New</span>
           <span className={[styles.tinyArrow, styles.tinyPadding].join(' ')}>
-            <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMax" viewBox="0 0 20 48" height="48" width="20" focusable="false" fill="none">
+            <svg id="whatsNewArrow" className={styles.arrowHide} xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMax" viewBox="0 0 20 48" height="48" width="20" focusable="false" fill="none">
               <g strokeWidth="3.2" stroke="#eaadad" fill="none" fillRule="evenodd">
                 <path d="M2 1.5l8 8 8-8m-16 44l8-8 8 8" />
               </g>
@@ -238,7 +252,7 @@ function Header() {
             </span>
           </span>
           <span className={[styles.tinyArrow, styles.tinyPadding].join(' ')}>
-            <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMax" viewBox="0 0 20 48" height="48" width="20" focusable="false" fill="none">
+            <svg id="signInArrow" className={styles.arrowHide} xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMax" viewBox="0 0 20 48" height="48" width="20" focusable="false" fill="none">
               <g strokeWidth="3.2" stroke="#eaadad" fill="none" fillRule="evenodd">
                 <path d="M2 1.5l8 8 8-8m-16 44l8-8 8 8" />
               </g>
