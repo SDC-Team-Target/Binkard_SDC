@@ -435,6 +435,12 @@ body .navbar {
   font-size: 14px;
 }
 
+.searchItem h3 {
+  font-size: 18;
+  font-weight: bold;
+  line-height: inherit;
+}
+
 .categoriesDD {
   top: 0px;
   left: 0px;
@@ -482,4 +488,3 @@ button.linkButton:hover {
 .hidden {
   display: none;
 }
-
