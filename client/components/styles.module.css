@@ -439,7 +439,10 @@ body .navbar {
   font-size: 18px;
   font-weight: bold;
   line-height: inherit;
-  margin-bottom: inherit;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
 }
 
 .categoriesDD {
