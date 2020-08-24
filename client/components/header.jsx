@@ -183,7 +183,7 @@ function Header() {
         </a>
         <a
           href="#categoriesDD"
-          className={styles.navItem}
+          className={[styles.navItem, styles.hiddenSm].join(' ')}
           onClick={menuDrop}
         >
           <span>Categories</span>
@@ -197,7 +197,7 @@ function Header() {
         </a>
         <a
           href="#dealsDD"
-          className={styles.navItem}
+          className={[styles.navItem, styles.hiddenSm].join(' ')}
           onClick={menuDrop}
         >
           <span>Deals</span>
@@ -211,7 +211,7 @@ function Header() {
         </a>
         <a
           href="#whatsNewDD"
-          className={styles.navItem}
+          className={[styles.navItem, styles.hiddenMed].join(' ')}
           onClick={menuDrop}
         >
           <span>What&apos;s New</span>
@@ -223,7 +223,7 @@ function Header() {
             </svg>
           </span>
         </a>
-        <span className={styles.navItem}>Same Day Delivery</span>
+        <span className={[styles.navItem, styles.hiddenMed].join(' ')}>Same Day Delivery</span>
         <div className={styles.searchHolder} id="searchBox">
           <form className={styles.searchbarForm} id="searchForm" onSubmit={select}>
             <input
@@ -407,22 +407,22 @@ function Header() {
         </div>
         <div>
           <span>
-            <a href="#registry">
+            <a href="#registry" className={styles.hiddenSm}>
               Registry
             </a>
           </span>
           <span>
-            <a href="#weeklyAd">
+            <a href="#weeklyAd" className={styles.hiddenSm}>
               Weekly Ad
             </a>
           </span>
           <span>
-            <a href="#redCard">
+            <a href="#redCard" className={styles.hiddenSm}>
               RedCard
             </a>
           </span>
           <span>
-            <a href="#giftCards">
+            <a href="#giftCards" className={styles.hiddenSm}>
               Gift Cards
             </a>
           </span>
@@ -437,7 +437,7 @@ function Header() {
             </a>
           </span>
           <span>
-            <a href="#heart">
+            <a href="#heart" className={styles.hiddenSm}>
               &lt;3
             </a>
           </span>
