@@ -141,37 +141,37 @@ function Footer() {
           <div>
             <ul className={[styles.h_display_inline_block, styles.tinyFooterUl].join(' ')}>
               <li className={[styles.tinyFooterLi, styles.h_text_sm].join(' ')}>
-                <a>
+                <a href="#recalls">
                   Recalls
                 </a>
               </li>
               <li className={[styles.tinyFooterLi, styles.h_text_sm].join(' ')}>
-                <a>
+                <a href="#terms">
                   Terms
                 </a>
               </li>
               <li className={[styles.tinyFooterLi, styles.h_text_sm].join(' ')}>
-                <a>
+                <a href="#interestBasedAds">
                   Interest-Based Ads
                 </a>
               </li>
               <li className={[styles.tinyFooterLi, styles.h_text_sm].join(' ')}>
-                <a>
+                <a href="#CAPrivacyRights">
                   CA Privacy Rights
                 </a>
               </li>
               <li className={[styles.tinyFooterLi, styles.h_text_sm].join(' ')}>
-                <a>
+                <a href="CASupplyChainAct">
                   CA Supply Chain Act
                 </a>
               </li>
               <li className={[styles.tinyFooterLi, styles.h_text_sm].join(' ')}>
-                <a>
+                <a href="privacy">
                   Privacy
                 </a>
               </li>
               <li className={[styles.tinyFooterLi, styles.h_text_sm].join(' ')}>
-                <a className={styles.h_text_bold}>
+                <a href="#doNotSellMyInfo" className={styles.h_text_bold}>
                   Do Not Sell My Info - CA Resident Only
                 </a>
               </li>

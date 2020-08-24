@@ -312,6 +312,14 @@ a.covidAlert {
   margin: 0px;
 }
 
+.tinyFooterLi a {
+  color: rgb(51, 51, 51);
+  text-decoration: none;
+  background-color: transparent;
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
 .footerLogo {
   display: block;
   position: relative;
