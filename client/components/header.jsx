@@ -5,6 +5,7 @@ import axios from 'axios';
 import styles from './styles.module.css';
 
 const { document } = window;
+window.shoppingCart = 0;
 
 function Header() {
   const [find, setFind] = useState([]);
@@ -167,6 +168,7 @@ function Header() {
     window.addEventListener('resize', () => { handleResize('searchForm', 'searchDD'); });
     if (categories.length === 0) { getMenu('/categories', setCategories); }
     if (find.length === 0) { getTrending(); }
+    if (window.shoppingCart === 0) { document.getElementById('shoppingCartNum').classList.add(styles.hidden); }
   });
   return (
     <div className={styles.navbar} id="wholeNav">
@@ -262,8 +264,9 @@ function Header() {
             Sign in
           </span>
         </a>
-        <a href="#adbar" className={[styles.navItem, styles.iconHolder].join(' ')}>
-          <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false">
+        <a href="#adbar" className={[styles.navItem, styles.iconHolder, styles.cartHolder].join(' ')}>
+          <span id="shoppingCartNum" className={styles.shoppingCart}>{window.shoppingCart}</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false" className={styles.cartImage}>
             <path d="M5.625 19.25c.77 0 1.375.605 1.375 1.375S6.395 22 5.625 22s-1.375-.605-1.375-1.375.605-1.375 1.375-1.375zm13 0c.77 0 1.375.605 1.375 1.375S19.395 22 18.625 22s-1.375-.605-1.375-1.375.604-1.375 1.375-1.375zM1.135 2.212l2.962.543 18.762 2.622-2.29 7.853-13.855.492.368 2.167c.094.558.55.977 1.103 1.034l.13.007H20.25v1.5H8.314a2.75 2.75 0 01-2.677-2.12l-.034-.17-.427-2.514L3.36 4.144.865 3.688l.27-1.476z" />
           </svg>
         </a>
@@ -370,6 +373,20 @@ function Header() {
           </ul>
         </div>
         <div id="whatsNewDD" className={[styles.menuDD, styles.whatsNewDD, styles.hidden].join(' ')}>
+          <ul>
+            {whatsNewMenu.map((whatsNew, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <li key={i} className={[styles.searchItem, styles.menuItem].join(' ')}>
+                <p>
+                  <a href={whatsNew[1]}>
+                    {whatsNew[0]}
+                  </a>
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div id="signInDD" className={[styles.menuDD, styles.whatsNewDD, styles.hidden].join(' ')}>
           <ul>
             {whatsNewMenu.map((whatsNew, i) => (
               // eslint-disable-next-line react/no-array-index-key

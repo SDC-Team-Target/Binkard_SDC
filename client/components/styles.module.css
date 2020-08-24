@@ -438,6 +438,24 @@ body .navbar {
 
 }
 
+.shoppingCart {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  font-size: 12px;
+  color: rgb(255, 255, 255);
+  font-weight: normal;
+}
+
+.cartHolder {
+  height: 85%;
+}
+
+.cartImage {
+  width: 29px;
+  height: 29px;
+}
+
 .searchItem p {
   font-size: 14px;
   display: block;
