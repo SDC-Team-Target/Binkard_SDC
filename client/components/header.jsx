@@ -5,7 +5,6 @@ import axios from 'axios';
 import styles from './styles.module.css';
 
 const { document } = window;
-window.shoppingCart = 0;
 
 function Header() {
   const [find, setFind] = useState([]);
