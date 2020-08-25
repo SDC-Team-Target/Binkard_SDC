@@ -19,27 +19,31 @@ body .navbar {
   margin: 0px;
 }
 
-.navbar input[type=search]::-ms-clear {
-   display: none; width : 0; height: 0; 
+.navbar input[type="search"]::-ms-clear {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
-.navbar input[type=search]::-ms-reveal { 
-  display: none; width : 0; height: 0; 
+.navbar input[type="search"]::-ms-reveal {
+  display: none;
+  width: 0;
+  height: 0;
 }
 /* clears the ‘X’ from Chrome */
 .navbar input[type="search"]::-webkit-search-decoration,
 .navbar input[type="search"]::-webkit-search-cancel-button,
 .navbar input[type="search"]::-webkit-search-results-button,
-.navbar input[type="search"]::-webkit-search-results-decoration { 
-  display: none; 
+.navbar input[type="search"]::-webkit-search-results-decoration {
+  display: none;
 }
 
-.navbar a:-webkit-any-link{
+.navbar a:-webkit-any-link {
   color: webkit-link;
   cursor: pointer;
 }
 
-.navbar a{
+.navbar a {
   touch-action: manipulation;
   text-decoration: none;
   background-color: transparent;
@@ -51,7 +55,7 @@ body .navbar {
   cursor: pointer;
 }
 
-.navbar ul{
+.navbar ul {
   list-style-type: none;
   padding-left: 0;
   padding-inline-start: 0px;
@@ -64,13 +68,10 @@ body .navbar {
   box-sizing: border-box;
 }
 
-
-
 @media (max-width: 1000px) {
   .hiddenMed {
     display: none !important;
   }
-
 }
 
 @media (max-width: 780px) {
@@ -107,8 +108,8 @@ body .navbar {
   fill: #ffffff;
 }
 .fill {
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
 }
 
 .locked {
@@ -302,26 +303,26 @@ body .navbar {
   font-size: 14px !important;
   line-height: 0.5;
   font: inherit;
-  margin:0px;
+  margin: 0px;
 }
 
 .adBar {
   background-color: rgb(247, 247, 247);
-    border-right-style: initial;
-    border-left-style: initial;
-    border-right-color: initial;
-    border-left-color: initial;
-    position: relative;
-    margin-top: -1px;
-    border-width: 1px 0px;
-    border-image: initial;
-    border-top: 1px solid rgb(214, 214, 214);
-    border-bottom: 1px solid rgb(214, 214, 214);
-    padding: 16px 50px;
+  border-right-style: initial;
+  border-left-style: initial;
+  border-right-color: initial;
+  border-left-color: initial;
+  position: relative;
+  margin-top: -1px;
+  border-width: 1px 0px;
+  border-image: initial;
+  border-top: 1px solid rgb(214, 214, 214);
+  border-bottom: 1px solid rgb(214, 214, 214);
+  padding: 16px 50px;
 }
 
 .adBarContent {
-  min-height:60px;
+  min-height: 60px;
   -webkit-box-pack: center;
   justify-content: center;
   text-align: center;
@@ -329,37 +330,37 @@ body .navbar {
   align-items: center;
 }
 .killAd {
-    display: inline-flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    flex-direction: row;
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    top: 3px;
-    right: 4px;
-    padding: 0px !important;
+  display: inline-flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  flex-direction: row;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 3px;
+  right: 4px;
+  padding: 0px !important;
 
-    font-weight: normal;
-    text-align: center;
-    vertical-align: middle;
-    touch-action: manipulation;
-    cursor: pointer;
-    background-image: none;
-    white-space: nowrap;
-    user-select: none;
-    display: inline-block;
-    font-size: 12px;
-    line-height: 1.42857;
-    color: inherit;
-    background-color: transparent;
-    border-width: 1px;
-    border-style: solid;
-    padding: 6px 12px;
-    border-radius: 4px;
-    border-color: transparent;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  white-space: nowrap;
+  user-select: none;
+  display: inline-block;
+  font-size: 12px;
+  line-height: 1.42857;
+  color: inherit;
+  background-color: transparent;
+  border-width: 1px;
+  border-style: solid;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border-color: transparent;
 }
 
 .focus {
@@ -368,7 +369,7 @@ body .navbar {
   left: 0px;
   right: 0px;
   bottom: 0px;
-  background-color: rgb(0, 0, 0, .7);
+  background-color: rgb(0, 0, 0, 0.7);
   z-index: 9000;
 }
 
@@ -425,26 +426,23 @@ body .navbar {
   padding: 12px 20px;
 }
 
-
 .menuItem a:hover {
   color: rgb(51, 51, 51);
   text-decoration: underline;
 }
 
-.searchItem{
-    
-    content: "";
-    display: block;
-    border-top: 1px solid rgb(214, 214, 214);
-    margin: 0px 0px;
-    outline: 0px;
-    overflow: hidden;
-    box-sizing: border-box;
+.searchItem {
+  content: "";
+  display: block;
+  border-top: 1px solid rgb(214, 214, 214);
+  margin: 0px 0px;
+  outline: 0px;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .searchItem li {
   list-style-type: none;
-
 }
 
 .shoppingCart {
@@ -502,13 +500,12 @@ body .navbar {
   left: 190px;
   right: auto;
   bottom: auto;
-
 }
 
 button.linkButton {
-  background: none!important;
+  background: none !important;
   border: none;
-  padding: 0!important;
+  padding: 0 !important;
   /*optional*/
   font-family: arial, sans-serif;
   /*input has OS specific font-family*/
