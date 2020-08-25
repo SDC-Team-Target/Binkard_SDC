@@ -1,15 +1,11 @@
 const express = require('express');
-
 const Promise = require('bluebird');
+const path = require('path');
+const db = Promise.promisifyAll(require('./database/db_helpers.js'));
 
 const app = express();
 
-const path = require('path');
-
-const db = Promise.promisifyAll(require('./database/db_helpers.js'));
-
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   next();
@@ -45,13 +41,45 @@ app.get('/c/:category', (req, res) => {
   });
 });
 
+app.post('/s/:searchedFor', (req, res) => {
+  const searched = req.params.searchedFor;
+  db.getProdByIdAsync(searched)
+    .then((name) => db.addToTrendingSearchesAsync(name[0].Name))
+    .then(() => res.sendStatus(200))
+    .catch((err) => {
+      console.log('error storing search result: ', err);
+      res.sendStatus(500);
+    });
+});
+
+app.get('/trending', (req, res) => {
+  db.getTrendingSearchesAsync()
+    .then((queries) => Promise.all(
+      queries.map((query) => db.getProdByNameAsync(query.Query)),
+    ))
+    .then((products) => {
+      res.send(products.map((prod) => {
+        const newObj = { ...prod[0] };
+        newObj.catName = 'Trending Searches';
+        newObj.snippet = prod[0].Name;
+        console.log(newObj);
+        return newObj;
+      }));
+    })
+    .catch((err) => {
+      console.log('error getting Recently Searched: ', err);
+      res.sendStatus(500);
+    });
+});
+
 app.get('/s/:searchFor', (req, res) => {
   const find = req.params.searchFor;
-  console.log(find);
+  // This will take whatever is typed in and replace those instances with a bolded version.
   const re = new RegExp(find, 'gi');
   const results = { count: 0 };
-
+  // this will take each search and categorize and sort everything for user experience.
   function storeAspect(aspect, searching) {
+    // aspects are the full results of searching in a specific spot. Searching is where it searched.
     let addUpTo = aspect.length;
     if (aspect.length > 0) {
       if (results.count + aspect.length > 10) {
@@ -60,6 +88,7 @@ app.get('/s/:searchFor', (req, res) => {
       } else {
         results.count += aspect.length;
       }
+
       results[searching] = [];
       for (let i = 0; i < addUpTo; i += 1) {
         const item = aspect[i];
@@ -87,6 +116,7 @@ app.get('/s/:searchFor', (req, res) => {
       }
     }
   }
+
   db.getSearchCategoriesAsync(find)
     .then((cats) => {
       if (cats.length > 0) {

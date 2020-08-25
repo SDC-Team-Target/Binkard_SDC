@@ -45,6 +45,7 @@ body .wholeFooter {
 .wholeFooter button {
   appearance: button;
   -webkit-writing-mode: horizontal-tb !important;
+  writing-mode: horizontal-tb;
   text-rendering: auto;
   color: -internal-light-dark(buttontext, rgb(170, 170, 170));
   letter-spacing: normal;
@@ -157,10 +158,83 @@ body .wholeFooter {
   font-weight: bold !important;
 }
 
+.fullSize {
+  width: 100%;
+  height: 100%;
+}
+
 .l_container, .l_container_fluid {
   width: 100%;
   overflow-x: hidden;
   margin: 0px auto;
+}
+
+hr.whiteBorder {
+  border-color: white;
+}
+
+a.covidAlert:visited {
+  color: rgb(102, 102, 102);
+}
+
+a.covidAlert {
+  box-shadow: none;
+  -webkit-tap-highlight-color: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  vertical-align: baseline;
+  position: relative;
+  cursor: pointer;
+  color: rgb(102, 102, 102);
+  display: inline-flex;
+  -webkit-box-align: center;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  height: 64px;
+  max-height: 64px;
+  max-width: 375px;
+  text-decoration: none;
+  padding: 0px 16px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(214, 214, 214);
+  border-image: initial;
+  border-radius: 8px;
+  overflow: auto;
+  margin: 12px 16px;
+}
+
+.covidAlertDiv {
+  background-color: rgb(255, 255, 255);
+  color: rgb(51, 51, 51);
+  display: flex;
+  flex-direction: row;
+  -webkit-box-align: center;
+  align-items: center;
+  text-align: left;
+  max-height: 64px;
+  border-color: rgb(136, 136, 136);
+}
+
+.covidAlertText {
+  margin: 0px;
+  outline: 0px;
+  display: block;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 1.25;
+  text-align: left;
+  max-height: 64px;
+}
+
+.covidSvgHolder {
+  height: 32px;
+  width: 32px;
+  margin-left: 38px;
+  flex-shrink: 0;
 }
 
 .l_container_fixed {
@@ -209,6 +283,48 @@ body .wholeFooter {
   padding: 4px;
 }
 
+.footButtonRow {
+  display: inline-flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.tinyFooterUl {
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 0px;
+  list-style: outside none none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.tinyFooterLi {
+  display: inline-block;
+  padding: 0px 4px 4px 4px;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 0px;
+  list-style: outside none none;
+  margin: 0px;
+}
+
+.tinyFooterLi a {
+  color: rgb(51, 51, 51);
+  text-decoration: none;
+  background-color: transparent;
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+.footerLogo {
+  display: block;
+  position: relative;
+}
+
 .footMenuButton {
   position: relative;
   font-weight: normal;
@@ -219,7 +335,7 @@ body .wholeFooter {
   background-image: none;
   white-space: nowrap;
   user-select: none;
-  display: block;
+  display: flex;
   flex-basis: 100%;
   width: 100%;
   font-size: 16px;
@@ -320,6 +436,26 @@ body .wholeFooter {
 }
 
 .fill{
+  display: block;
   height: 100%;
   width: 100%;
+}
+
+.svgFill {
+  color: rgb(51, 51, 51);
+  fill: rgb(51, 51, 51);
+  font-family: "Helvetica for Target", HelveticaForTarget, Targetica, "HelveticaNeue for Target", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.4285;
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: 0px;
+  text-indent: 0px;
+  text-shadow: none;
+  text-transform: none;
+  white-space: normal;
+}
+
+.transformed90 {
+  transform: rotate(270deg) translateX(-23.235px)
 }
