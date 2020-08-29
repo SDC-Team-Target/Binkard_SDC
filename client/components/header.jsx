@@ -28,6 +28,10 @@ function Header() {
     ["Target Finds", "#TargetFinds"],
   ];
 
+  // axios.defaults.baseURL =
+  //   // "http://ec2-18-191-153-215.us-east-2.compute.amazonaws.com:8008";
+  //   "http://localhost:8008";
+
   function select(e) {
     e.preventDefault();
   }
@@ -91,7 +95,8 @@ function Header() {
   function getMenu(route, callback) {
     axios
       .get(
-        `http://ec2-18-191-153-215.us-east-2.compute.amazonaws.com:8008${route}`
+        // `http://ec2-18-191-153-215.us-east-2.compute.amazonaws.com:8008${route}`
+        `${route}`
       )
       .then((result) => {
         callback(Object.values(result.data));
@@ -103,7 +108,8 @@ function Header() {
     const cat = e.target.innerText;
     axios
       .get(
-        `http://ec2-18-191-153-215.us-east-2.compute.amazonaws.com:8008/c/${cat}`
+        // `http://ec2-18-191-153-215.us-east-2.compute.amazonaws.com:8008/c/${cat}`
+        `/c/${cat}`
       )
       .then((result) => {
         const { data } = result;
@@ -115,14 +121,16 @@ function Header() {
 
   function publishSearch(id) {
     axios.post(
-      `http://ec2-18-191-153-215.us-east-2.compute.amazonaws.com:8008/s/${id}`
+      // `http://ec2-18-191-153-215.us-east-2.compute.amazonaws.com:8008/s/${id}`
+      `/s/${id}`
     );
   }
 
   function getTrending() {
     axios
       .get(
-        "http://ec2-18-191-153-215.us-east-2.compute.amazonaws.com:8008/trending"
+        // "http://ec2-18-191-153-215.us-east-2.compute.amazonaws.com:8008/trending"
+        "/trending"
       )
       .then((dataBlock) => {
         const { data } = dataBlock;
@@ -138,7 +146,8 @@ function Header() {
     if (searchFor.length > 0) {
       axios
         .get(
-          `http://ec2-18-191-153-215.us-east-2.compute.amazonaws.com:8008/s/${searchFor}`
+          // `http://ec2-18-191-153-215.us-east-2.compute.amazonaws.com:8008/s/${searchFor}`
+          `/s/${searchFor}`
         )
         .then((result) => {
           const { data } = result;
@@ -172,6 +181,7 @@ function Header() {
     showArrow(arrowName);
     hideCheck(["searchFocus", idName]);
   }
+
   useEffect(() => {
     function handleResize(idToMatch, idToChange) {
       let { left, width } = matchBar(idToMatch);
@@ -438,14 +448,20 @@ function Header() {
                   </h3>
                 </li>
                 {res.map((item) => (
-                  <li key={item.ProductID} className={styles.searchItem}>
+                  <li
+                    key={
+                      item.ProductID *
+                      Math.floor(Math.random() * (100000 - 1) + 1)
+                    }
+                    className={styles.searchItem}
+                  >
                     <p>
                       <button
                         type="button"
                         className={[styles.linkButton, styles.font14].join(" ")}
                         onClick={() => {
                           publishSearch(item.ProductID);
-                          window.setProductid(item.ProductID);
+                          // window.setProductid(item.ProductID);
                           document.getElementById("searchbarInput").blur();
                         }}
                       >

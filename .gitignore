@@ -1,2 +1,3 @@
 node_modules
-database/mysql.config.js
+database/legacy/mysql.config.js
+database/postgres/configPG.js

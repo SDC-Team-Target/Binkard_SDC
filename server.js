@@ -1,17 +1,19 @@
-const express = require('express');
-const Promise = require('bluebird');
-const path = require('path');
-const db = Promise.promisifyAll(require('./database/db_helpers.js'));
+const express = require("express");
+const Promise = require("bluebird");
+const path = require("path");
+const db = Promise.promisifyAll(require("./database/legacy/db_helpers.js"));
+const cors = require("cors");
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'public')));
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
+app.use(cors());
+app.use(express.static(path.join(__dirname, "public")));
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   next();
+// });
 
-app.get('/categories', (req, res) => {
+app.get("/categories", (req, res) => {
   db.getCategories((err, result) => {
     if (err) {
       res.sendStatus(500);
@@ -21,16 +23,16 @@ app.get('/categories', (req, res) => {
   });
 });
 
-app.get('/c/:category', (req, res) => {
+app.get("/c/:category", (req, res) => {
   db.getItemsByCategory(req.params.category, (err, result) => {
     if (err) {
       res.sentStatus(500);
     } else {
       const adjusted = result.map((obj) => {
-        let more = '';
-        if (obj.Name.length > 70) more = '...';
+        let more = "";
+        if (obj.Name.length > 70) more = "...";
         const newObj = {
-          catName: 'Item Name',
+          catName: "Item Name",
           snippet: obj.Name.slice(0, 70) + more,
           ...obj,
         };
@@ -41,41 +43,46 @@ app.get('/c/:category', (req, res) => {
   });
 });
 
-app.post('/s/:searchedFor', (req, res) => {
+app.post("/s/:searchedFor", (req, res) => {
   const searched = req.params.searchedFor;
   db.getProdByIdAsync(searched)
     .then((name) => db.addToTrendingSearchesAsync(name[0].Name))
     .then(() => res.sendStatus(200))
     .catch((err) => {
-      console.log('error storing search result: ', err);
+      console.log("error storing search result: ", err);
       res.sendStatus(500);
     });
 });
 
-app.get('/trending', (req, res) => {
+app.get("/trending", (req, res) => {
+  // console.log("IT MADE IT TO THE SERVER");
   db.getTrendingSearchesAsync()
-    .then((queries) => Promise.all(
-      queries.map((query) => db.getProdByNameAsync(query.Query)),
-    ))
+    .then((queries) =>
+      Promise.all(queries.map((query) => db.getProdByNameAsync(query.Query)))
+    )
     .then((products) => {
-      res.send(products.map((prod) => {
-        const newObj = { ...prod[0] };
-        newObj.catName = 'Trending Searches';
-        newObj.snippet = prod[0].Name;
-        console.log(newObj);
-        return newObj;
-      }));
+      // console.log("PRODUCTS", products);
+      res.send(
+        products.map((prod) => {
+          // console.log("PROD: ", prod);
+          const newObj = { ...prod[0] };
+          newObj.catName = "Trending Searches";
+          newObj.snippet = prod[0].Name;
+          // console.log(newObj);
+          return newObj;
+        })
+      );
     })
     .catch((err) => {
-      console.log('error getting Recently Searched: ', err);
+      console.log("error getting Recently Searched: ", err);
       res.sendStatus(500);
     });
 });
 
-app.get('/s/:searchFor', (req, res) => {
+app.get("/s/:searchFor", (req, res) => {
   const find = req.params.searchFor;
   // This will take whatever is typed in and replace those instances with a bolded version.
-  const re = new RegExp(find, 'gi');
+  const re = new RegExp(find, "gi");
   const results = { count: 0 };
   // this will take each search and categorize and sort everything for user experience.
   function storeAspect(aspect, searching) {
@@ -83,7 +90,7 @@ app.get('/s/:searchFor', (req, res) => {
     let addUpTo = aspect.length;
     if (aspect.length > 0) {
       if (results.count + aspect.length > 10) {
-        addUpTo = (10 - results.count);
+        addUpTo = 10 - results.count;
         results.count = 10;
       } else {
         results.count += aspect.length;
@@ -92,21 +99,23 @@ app.get('/s/:searchFor', (req, res) => {
       results[searching] = [];
       for (let i = 0; i < addUpTo; i += 1) {
         const item = aspect[i];
-        if (searching === 'Name') {
-          item.catName = 'Item Name';
+        if (searching === "Name") {
+          item.catName = "Item Name";
         } else {
           item.catName = `In item ${searching}`;
         }
         if (item[searching].length > 75) {
-          const start = item[searching].toLowerCase().indexOf(find.toLowerCase());
+          const start = item[searching]
+            .toLowerCase()
+            .indexOf(find.toLowerCase());
           if (start > 0) {
-            item.snippet = '...';
+            item.snippet = "...";
           } else {
-            item.snippet = '';
+            item.snippet = "";
           }
           item.snippet += item[searching].slice(start, start + 72);
           if (item.snippet.length >= 72) {
-            item.snippet += '...';
+            item.snippet += "...";
           }
         } else {
           item.snippet = item[searching];
@@ -126,7 +135,7 @@ app.get('/s/:searchFor', (req, res) => {
       return db.getProdNamesAsync(find);
     })
     .then((prods) => {
-      storeAspect(prods, 'Name');
+      storeAspect(prods, "Name");
       if (results.count >= 10) {
         const err = false;
         throw err;
@@ -134,7 +143,7 @@ app.get('/s/:searchFor', (req, res) => {
       return db.getProdDetailsAsync(find);
     })
     .then((dets) => {
-      storeAspect(dets, 'Details');
+      storeAspect(dets, "Details");
       if (results.count >= 10) {
         const err = false;
         throw err;
@@ -142,7 +151,7 @@ app.get('/s/:searchFor', (req, res) => {
       return db.getProdHighlightsAsync(find);
     })
     .then((highlights) => {
-      storeAspect(highlights, 'Highlight');
+      storeAspect(highlights, "Highlight");
       if (results.count >= 10) {
         const err = false;
         throw err;
@@ -150,7 +159,7 @@ app.get('/s/:searchFor', (req, res) => {
       return db.getProdSpecsAsync(find);
     })
     .then((specs) => {
-      storeAspect(specs, 'Spec');
+      storeAspect(specs, "Spec");
       if (results.count >= 10) {
         const err = false;
         throw err;
@@ -168,5 +177,5 @@ app.get('/s/:searchFor', (req, res) => {
 });
 
 app.listen(8008, () => {
-  console.log('listening on port: 8008');
+  console.log("listening on port: 8008");
 });
