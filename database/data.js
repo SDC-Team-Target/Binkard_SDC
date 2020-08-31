@@ -20,7 +20,7 @@ const writeTenMillionProdNames = (writer, encoding, callback) => {
       const color = faker.commerce.color();
       const adj2 = faker.commerce.productAdjective();
       const productName = faker.commerce.productName();
-      const data = `${id}, ${companyName}, ${adj1}, ${material}, ${color}, ${adj2}, ${productName}\n`;
+      const data = `${id}, ${companyName} ${adj1} ${material} ${color} ${adj2} ${productName}\n`;
       if (i === 0) {
         writer.write(data, encoding, callback);
       } else {
