@@ -1,19 +1,49 @@
+const newrelic = require("newrelic");
 const express = require("express");
-const Promise = require("bluebird");
+const maxListeners = (require("events").EventEmitter.defaultMaxListeners = Infinity);
 const path = require("path");
-const db = Promise.promisifyAll(require("./database/legacy/db_helpers.js"));
 const cors = require("cors");
-// const config = require("./database/postgres/configPG.js");
+const {
+  getItemsByProductId,
+  getItemsbyName,
+} = require("./database/postgres/indexPG");
+// const Promise = require("bluebird");
+// const db = Promise.promisifyAll(require("./database/legacy/db_helpers.js"));
 
 const app = express();
+const port = 8008;
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
-// app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   next();
-// });
 
+//routes
+
+// get items by ID
+app.get("/items/:id", (req, res) => {
+  getItemsByProductId(req.params.id)
+    .then((products) => {
+      res.status(200).send(products.rows[0]);
+    })
+    .catch((err) =>
+      res.status(500).send(`Error retrieving products by ID: ${err}`)
+    );
+});
+
+// get items by Name
+app.get("/itemsByName/:name", (req, res) => {
+  getItemsbyName(req.params.name)
+    .then((products) => {
+      res.status(200).send(products.rows.slice(0, 10));
+    })
+    .catch((err) => {
+      res.status(500).send(`Error retrieving proucts by name: ${err}`);
+    });
+});
+
+// server connection test
+app.listen(port, () => {
+  console.log(`listening on port: ${port}`);
+});
 // app.get("/categories", (req, res) => {
 //   db.getCategories((err, result) => {
 //     if (err) {
@@ -176,7 +206,3 @@ app.use(express.static(path.join(__dirname, "public")));
 //       }
 //     });
 // });
-
-app.listen(8008, () => {
-  console.log("listening on port: 8008");
-});

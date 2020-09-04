@@ -1,15 +1,26 @@
-const { Pool, Client } = require("pg");
-// pools will use environment variables
-// for connection information
-const pool = new Pool();
-pool.query("SELECT NOW()", (err, res) => {
-  console.log(err, res);
-  pool.end();
-});
+const { config } = require("./configPG");
+const { Pool } = require("pg");
 
-const client = new Client();
-client.connect();
-client.query("SELECT * FROM searchbar_sdc WHERE id = 1", (err, res) => {
-  console.log(err ? err.stack : res.rows[0].message);
-  client.end();
-});
+const pool = new Pool(config);
+
+// get items by product id (promisified query)
+const getItemsByProductId = (productID) => {
+  const itemsByProductIDQuery = "SELECT * FROM product_names WHERE id = ($1)";
+  const escapedProductID = [productID];
+
+  return pool.query(itemsByProductIDQuery, escapedProductID);
+};
+
+// get items by product name
+const getItemsbyName = (productName) => {
+  const itemsByNameQuery =
+    "SELECT * FROM product_names WHERE product_name LIKE ($1) LIMIT 10";
+
+  // when the product name is passed in from the server, it comes with " at the beginning and end, causing the DB query to fail... resolve this with .slice()
+  const productNameCorrected = productName.slice(1, productName.length - 1);
+  const escapedProductName = [`${productNameCorrected}`];
+
+  return pool.query(itemsByNameQuery, escapedProductName);
+};
+
+module.exports = { getItemsByProductId, getItemsbyName };

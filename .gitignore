@@ -3,3 +3,4 @@ database/legacy/mysql.config.js
 database/postgres/configPG.js
 database/prodNames.csv
 .DS_Store
+newrelic.js
