@@ -6,14 +6,13 @@ For this project I extended the capabilites of inherited code with a focus of su
 
 I performed load testing with K6 and analyzed latency and throughput with New Relic. Below are some benchmarks I achieved: 
 
-  * Queries executed in under 50ms
-
-  * Generated and seeded a database with 10m documents
+  * Achieved an average throughput of 54.5k requests per minute.
+  ![throughput_test](https://i.imgur.com/AkeyBdY.png)
 
   * Maintained Error rate of 0% under a load of 1000 virtual users over a half-hour-long test
   ![k6 test](https://i.imgur.com/s6WQAnH.png)
 
 
 ## Technologies:
-  * Back end: Express, Node, Mongo DB
+  * Back end: Express, Node, PostgreSQL
   * Load Testing & Benchmarking: K6, New Relic
